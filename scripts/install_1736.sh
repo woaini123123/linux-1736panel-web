@@ -115,11 +115,7 @@ if [ $OSNAME != "macos" ];then
 fi
 
 echo "use system version: ${OSNAME}"
-if [ "${OSNAME}" == "macos" ];then
-	curl --insecure -fsSL ${HTTP_PREFIX}github.com/sawyerlin/linux-panel-public/raw/branch/main/scripts/install/macos.sh | bash
-else
-	cd /www/server/mdserver-web && bash scripts/install/${OSNAME}.sh
-fi
+cd /www/server/mdserver-web && bash scripts/install/${OSNAME}.sh
 
 echo "install geneva"
 cp /www/server/mdserver-web/geneva/geneva_http* /usr/lib/systemd/system/
