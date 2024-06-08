@@ -1,0 +1,1223 @@
+[
+  {
+    "author": "agentzh",
+    "checks": "server/openresty",
+    "date": "2017-11-24",
+    "home": "http://openresty.org",
+    "install_pre_inspection": true,
+    "name": "openresty",
+    "path": "server/openresty",
+    "pid": "1",
+    "ps": "轻量级，占有内存少，并发能力强",
+    "shell": "install.sh",
+    "tip": "soft",
+    "title": "OpenResty",
+    "type": "其他插件",
+    "updates": [
+      "1.17.8.2",
+      "1.19.3.1",
+      "1.21.4.2",
+      "1.21.4.3"
+    ],
+    "versions": [
+      "1.17.8.2",
+      "1.19.3.1",
+      "1.21.4.2",
+      "1.21.4.3"
+    ]
+  },
+  {
+    "author": "loveshell",
+    "checks": "server/op_waf",
+    "date": "2019-04-21",
+    "home": "https://github.com/loveshell/ngx_lua_waf",
+    "hook": [
+      {
+        "tag":"menu",
+        "menu": {
+          "title":"OP防火墙",
+          "name":"op_waf",
+          "path":"index_menu.html",
+          "js_path":"js/op_waf.js"
+        }
+      },
+      {
+        "site_cb": {
+          "add": {
+            "func": "reload"
+          },
+          "delete": {
+            "func": "reload"
+          },
+          "name": "op_waf",
+          "title": "网站统计",
+          "update": {
+            "func": "reload"
+          }
+        },
+        "tag": "site_cb"
+      }
+    ],
+    "install_pre_inspection": true,
+    "name": "op_waf",
+    "path": "server/op_waf",
+    "pid": "1",
+    "ps": "有效防止sql注入/xss/一句话木马等常见渗透攻击",
+    "shell": "install.sh",
+    "tip": "soft",
+    "title": "OP防火墙",
+    "type": "其他插件",
+    "versions": [
+      "0.4.1"
+    ]
+  },
+  {
+      "author": "mysql",
+      "checks": "server/mysql-yum",
+      "date": "2022-06-29",
+      "home": "https://dev.mysql.com/downloads/mysql",
+      "hook": [
+        {
+          "tag":"menu",
+          "menu": {
+            "title":"MYSQL",
+            "name":"mysql-yum",
+            "path":"index_menu.html",
+            "js_path":"js/mysql-yum.js"
+          }
+        },
+        {
+          "tag": "global_static",
+          "global_static": {
+            "css_path": "css/ico.css",
+            "name": "mysql-yum",
+            "title": "MYSQL"
+          }
+        },
+        "database"
+      ],
+      "install_pre_inspection": true,
+      "name": "mysql-yum",
+      "path": "server/mysql-yum",
+      "pid": "6",
+      "ps": "一种关系数据库管理系统",
+      "shell": "install.sh",
+      "tip": "soft",
+      "title": "MySQL",
+      "todo_versions": [
+        "5.7",
+        "8.0"
+      ],
+      "os": "rhel",
+      "type": "运行环境",
+      "versions": [
+        "5.7",
+        "8.0"
+      ]
+    },
+    
+    {
+      "author": "mysql",
+      "checks": "server/mysql-apt",
+      "date": "2022-06-29",
+      "home": "https://dev.mysql.com/downloads/mysql",
+      "hook": [
+        {
+          "tag":"menu",
+          "menu": {
+            "title":"MYSQL",
+            "name":"mysql-apt",
+            "path":"index_menu.html",
+            "js_path":"js/mysql-apt.js"
+          }
+        },
+        {
+          "tag": "global_static",
+          "global_static": {
+            "css_path": "css/ico.css",
+            "name": "mysql-apt",
+            "title": "MYSQL"
+          }
+        },
+        "database"
+      ],
+      "install_pre_inspection": true,
+      "name": "mysql-apt",
+      "path": "server/mysql-apt",
+      "pid": "6",
+      "ps": "一种关系数据库管理系统",
+      "shell": "install.sh",
+      "tip": "soft",
+      "title": "MySQL",
+      "todo_versions": [
+        "5.7",
+        "8.0"
+      ],
+      "type": "运行环境",
+      "os": "debian",
+      "versions": [
+        "5.7",
+        "8.0"
+      ]
+    },
+    {
+      "author": "Zend",
+      "checks": "server/php-yum/VERSION",
+      "coexist": true,
+      "date": "2022-07-07",
+      "display": 1,
+      "home": "https://www.php.net",
+      "install_pre_inspection": true,
+      "name": "php-yum",
+      "path": "server/php-yum/VERSION",
+      "pid": "6",
+      "ps": "PHP是世界上最好的编程语言",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "PHP",
+      "os": "rhel",
+      "type": "PHP语言解释器",
+      "versions": [
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "80",
+        "81",
+        "82",
+        "83"
+      ]
+    },
+    {
+      "author": "Zend",
+      "checks": "server/php-apt/VERSION",
+      "coexist": true,
+      "date": "2022-07-07",
+      "display": 1,
+      "home": "https://www.php.net",
+      "install_pre_inspection": true,
+      "name": "php-apt",
+      "path": "server/php-apt/VERSION",
+      "pid": "6",
+      "ps": "PHP是世界上最好的编程语言",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "PHP",
+      "type": "PHP语言解释器",
+      "os": "debian",
+      "versions": [
+        "56",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "81",
+        "82",
+        "83"
+      ]
+    },
+    {
+      "author": "phpMyAdmin",
+      "checks": "server/phpmyadmin",
+      "date": "2017-11-24",
+      "home": "https://www.phpmyadmin.net/",
+      "name": "phpmyadmin",
+      "path": "server/phpmyadmin",
+      "pid": "2",
+      "ps": "著名Web端MySQL管理工具",
+      "shell": "install.sh",
+      "tip": "soft",
+      "title": "phpMyAdmin",
+      "to_ver": [
+        "4.8.4"
+      ],
+      "type": "运行环境",
+      "updates": [
+        "4.4.15",
+        "4.9.10",
+        "5.2.0"
+      ],
+      "versions": [
+        "4.4.15",
+        "4.9.10",
+        "5.2.0"
+      ]
+    },
+    {
+      "author": "midoks",
+      "checks": "server/tamper_proof_py",
+      "date": "2022-01-18",
+      "home": "",
+      "name": "tamper_proof_py",
+      "path": "server/tamper_proof_py",
+      "pid": "4",
+      "ps": "事件型防篡改程序,可有效保护网站重要文件不被木马篡改",
+      "shell": "install.sh",
+      "tip": "lib",
+      "title": "网站防篡改程序[PY]",
+      "type": "soft",
+      "versions": "1.0"
+    },
+    {
+      "author": "mdserver-web",
+      "checks": "server/pureftp",
+      "date": "2018-11-30",
+      "dev_update": "2022-6-18",
+      "home": "https://github.com/midoks/mdserver-web",
+      "name": "pureftp",
+      "path": "server/pureftp",
+      "pid": "3",
+      "ps": "一款免费FTP服务器软件",
+      "shell": "install.sh",
+      "tip": "soft",
+      "title": "PureFtpd",
+      "versions": "1.0.49",
+      "hook":[
+        {
+          "tag":"menu",
+          "menu": {
+            "title":"FTP",
+            "name":"pureftp",
+            "path":"index_menu.html",
+            "js_path":"js/ftp.js"
+          }
+        },
+        {
+          "tag":"global_static",
+          "global_static": {
+            "css_path": "css/ico.css",
+            "title":"FTP",
+            "name":"pureftp"
+          }
+        }
+      ]
+    },
+    {
+      "author": "mariadb",
+      "checks": "server/mariadb",
+      "date": "2022-07-12",
+      "home": "https://mariadb.org/",
+      "hook": [
+        "database"
+      ],
+      "name": "mariadb",
+      "path": "server/mariadb",
+      "pid": "2",
+      "ps": "一种关系数据库管理系统!",
+      "shell": "install.sh",
+      "tip": "soft",
+      "title": "MariaDB",
+      "type": "运行环境",
+      "uninstall_pre_inspection": true,
+      "versions": [
+        "10.6",
+        "10.7",
+        "10.8",
+        "10.9",
+        "10.11",
+        "11.0",
+        "11.1",
+        "11.2",
+        "11.3"
+      ]
+    },
+    {
+      "author": "midoks",
+      "checks": "server/dynamic-tracking",
+      "date": "2023-08-17",
+      "display": 1,
+      "hook": [
+        {
+          "menu": {
+            "css_path": "static/css/dynamic-tracking.css",
+            "js_path": "static/js/dynamic-tracking.js",
+            "name": "dynamic-tracking",
+            "path": "static/html/index.html",
+            "title": "动态追踪"
+          },
+          "tag": "menu"
+        },
+        {
+          "global_static": {
+            "css_path": "static/css/ico.css",
+            "name": "dynamic-tracking",
+            "title": "动态追踪"
+          },
+          "tag": "global_static"
+        }
+      ],
+      "name": "dynamic-tracking",
+      "path": "server/dynamic-tracking",
+      "pid": "4",
+      "ps": "专业使用,动态追踪调试程序<无侵入>![<span style='color:red;'>潜龙勿用|实验</span>]",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "动态追踪",
+      "type": 0,
+      "versions": [
+        "0.1"
+      ]
+    },
+    {
+      "author": "midoks",
+      "checks": "server/msonedrive",
+      "date": "2023-8-18",
+      "hook": [
+        "backup"
+      ],
+      "name": "msonedrive",
+      "pid": "5",
+      "ps": "微软家的云网盘服务",
+      "shell": "install.sh",
+      "tip": "lib",
+      "title": "OneDrive",
+      "type": "sort",
+      "versions": "1.0"
+    },
+    {
+      "author": "swap",
+      "checks": "server/swap",
+      "date": "2021-01-29",
+      "display": 1,
+      "home": "swap",
+      "name": "swap",
+      "path": "server/swap",
+      "pid": "4",
+      "ps": "Linux虚拟内存",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "swap",
+      "type": 0,
+      "versions": "1.1"
+    },
+    {
+      "disable": true,
+      "author": "mysql",
+      "checks": "server/mysql",
+      "coexist": false,
+      "date": "2017-11-24",
+      "home": "https://dev.mysql.com/downloads/mysql",
+      "install_pre_inspection": true,
+      "name": "mysql",
+      "path": "server/mysql",
+      "pid": "2",
+      "ps": "一种关系数据库管理系统!",
+      "shell": "install.sh",
+      "tip": "soft",
+      "title": "MySQL",
+      "todo_versions": [
+        "5.6",
+        "5.7",
+        "8.0",
+        "8.2"
+      ],
+      "type": "运行环境",
+      "uninstall_pre_inspection": true,
+      "updates": [
+        "5.5.62",
+        "5.6.50",
+        "5.7.32",
+        "8.0.34",
+        "8.2.0"
+      ],
+      "versions": [
+        "5.5",
+        "5.6",
+        "5.7",
+        "8.0",
+        "8.2"
+      ]
+    },
+    {
+      "author": "midoks",
+      "checks": "server/tgbot",
+      "date": "2023-03-06",
+      "depend_doc1": "https://github.com/eternnoir/pyTelegramBotAPI",
+      "display": 1,
+      "home": "https://core.telegram.org/bots/api",
+      "install_pre_inspection": true,
+      "name": "tgbot",
+      "path": "server/tgbot",
+      "pid": "5",
+      "ps": "简单Telegram机器人",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "tgbot",
+      "type": 0,
+      "uninstall_pre_inspection": true,
+      "versions": [
+        "1.0"
+      ]
+    },
+    {
+      "disable": true,
+      "author": "ssh",
+      "checks": "server/webssh",
+      "date": "2018-12-20",
+      "home": "",
+      "hook": [
+        {
+          "menu": {
+            "css_path": "menu/index.css",
+            "js_path": "js/webssh.js",
+            "name": "webssh",
+            "path": "menu/index.html",
+            "title": "终端管理"
+          },
+          "tag": "menu"
+        },
+        {
+          "global_static": {
+            "css_path": "menu/ico.css",
+            "name": "webssh",
+            "title": "终端管理"
+          },
+          "tag": "global_static"
+        }
+      ],
+      "id": 3,
+      "name": "webssh",
+      "path": "server/webssh",
+      "pid": "4",
+      "ps": "完整功能的SSH客户端，仅用于连接本服务器",
+      "shell": "install.sh",
+      "tip": "lib",
+      "title": "SSH终端",
+      "type": "扩展",
+      "versions": "2.0"
+    },
+    {
+      "disable": true,
+      "author": "Zend",
+      "checks": "server/php/VERSION/bin/php",
+      "coexist": true,
+      "date": "2017-04-01",
+      "display": 1,
+      "home": "https://www.php.net",
+      "install_pre_inspection": true,
+      "name": "php",
+      "path": "server/php/VERSION",
+      "pid": "1",
+      "ps": "PHP是世界上最好的编程语言",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "PHP",
+      "type": "PHP语言解释器",
+      "updates": [
+        "5.3.29",
+        "5.4.45",
+        "5.6.36",
+        "7.0.30",
+        "7.1.33",
+        "7.2.32",
+        "7.3.20",
+        "7.4.30",
+        "8.0.30",
+        "8.1.24",
+        "8.2.11",
+        "8.3.0"
+      ],
+      "versions": [
+        "53",
+        "54",
+        "55",
+        "56",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "80",
+        "81",
+        "82",
+        "83"
+      ]
+    },
+    {
+      "author": "midoks",
+      "checks": "server/op_load_balance",
+      "date": "2023-02-02",
+      "home": "https://github.com/midoks",
+      "install_pre_inspection": true,
+      "name": "op_load_balance",
+      "path": "server/op_load_balance",
+      "pid": "1",
+      "ps": "基于OpenResty的负载均衡",
+      "shell": "install.sh",
+      "tip": "soft",
+      "title": "OP负载均衡",
+      "type": "其他插件",
+      "versions": [
+        "1.0"
+      ]
+    },
+    
+    {
+      "author": "clean",
+      "checks": "server/clean",
+      "date": "2021-11-23",
+      "home": "https://github.com/midoks",
+      "name": "clean",
+      "path": "server/clean",
+      "pid": "5",
+      "ps": "日志清理",
+      "shell": "install.sh",
+      "tip": "soft",
+      "title": "日志清理",
+      "type": "运行环境",
+      "updates": "1.0",
+      "versions": "1.0"
+    },
+    
+    {
+      "author": "midoks",
+      "checks": "server/sphinx",
+      "date": "2017-04-01",
+      "display": 1,
+      "doc1": "http://sphinxsearch.com/docs/sphinx3.html",
+      "doc2": "http://sphinxsearch.com/docs/manual-2.3.2.html",
+      "home": "http://sphinxsearch.com/",
+      "name": "sphinx",
+      "path": "server/sphinx",
+      "pid": "2",
+      "ps": "简单高效的全文搜索引擎",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "sphinx",
+      "type": 0,
+      "updates": [
+        "3.1.1"
+      ],
+      "versions": [
+        "3.1.1"
+      ]
+    },
+    {
+      "author": "midoks",
+      "checks": "server/haproxy",
+      "date": "2022-08-26",
+      "display": 1,
+      "doc1": "https://www.haproxy.org/",
+      "home": "https://www.haproxy.org/",
+      "name": "haproxy",
+      "path": "server/haproxy",
+      "pid": "4",
+      "ps": "可靠、高性能的TCP/HTTP负载平衡器",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "haproxy",
+      "type": 0,
+      "updates": [
+        "2.6"
+      ],
+      "versions": [
+        "2.6"
+      ]
+    },
+    {
+      "author": "midoks",
+      "checks": "server/sys-opt",
+      "date": "2018-12-20",
+      "home": "",
+      "id": 3,
+      "name": "sys-opt",
+      "path": "server/sys-opt",
+      "pid": "5",
+      "ps": "仅Linux系统优化",
+      "shell": "install.sh",
+      "tip": "soft",
+      "title": "系统优化",
+      "type": "扩展",
+      "versions": "1.0"
+    },
+    {
+      "author": "midoks",
+      "checks": "server/gogs",
+      "date": "2018-04-01",
+      "home": "https://gogs.io",
+      "name": "gogs",
+      "path": "server/gogs",
+      "pid": "3",
+      "ps": "Gogs是一款极易搭建的自助Git服务",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "Gogs",
+      "type": "Git服务器",
+      "versions": [
+        "0.11.86",
+        "0.12.9",
+        "0.13.0"
+      ]
+    },
+    {
+      "author": "samba",
+      "checks": "server/rsyncd",
+      "date": "2019-03-05",
+      "home": "https://rsync.samba.org/",
+      "id": 3,
+      "name": "rsyncd",
+      "path": "server/rsyncd",
+      "pid": "4",
+      "ps": "rsyncd同步助手",
+      "shell": "install.sh",
+      "tip": "soft",
+      "title": "rsyncd",
+      "type": "软件",
+      "versions": "2.0"
+    },
+    {
+      "api_doc": "https://developers.google.com/drive/api/guides/about-sdk?hl=zh_CN",
+      "api_doc2": "https://developers.google.cn/drive/api/reference/rest/v3/comments/list?hl=zh-cn",
+      "author": "google",
+      "checks": "server/gdrive",
+      "date": "2022-06-26",
+      "home": "https://drive.google.com/",
+      "hook": [
+        "backup"
+      ],
+      "id": 998,
+      "name": "gdrive",
+      "path": "server/gdrive",
+      "pid": "5",
+      "ps": "备份你的数据到谷歌云网盘",
+      "shell": "install.sh",
+      "tip": "lib",
+      "title": "谷歌云网盘",
+      "type": "扩展",
+      "versions": "2.0"
+    },
+    {
+      "author": "midoks",
+      "checks": "server/mosquitto",
+      "date": "2023-09-28",
+      "display": 1,
+      "home": "https://mosquitto.org",
+      "name": "mosquitto",
+      "path": "server/mosquitto",
+      "pid": "4",
+      "ps": "MQTT是一个消息队列遥测传输软件",
+      "shell": "install.sh",
+      "sort": 999,
+      "tip": "soft",
+      "title": "mosquitto",
+      "type": "soft",
+      "updates": [
+        "2.0.18"
+      ],
+      "versions": [
+        "2.0.18"
+      ]
+    },
+    {
+      "author": "midoks",
+      "checks": "server/lvs",
+      "date": "2023-11-17",
+      "display": 1,
+      "home": "http://www.linuxvirtualserver.org/",
+      "name": "lvs",
+      "path": "server/lvs",
+      "pid": "4",
+      "ps": "[<span style='color:red;'>内网</span>]LVS超强负载均衡,通过ipvsadm管理[<span style='color:red;'>暂时不可用</span>]",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "LVS",
+      "type": 0,
+      "updates": [
+        "1.0"
+      ],
+      "versions": [
+        "1.0"
+      ]
+    },
+    
+    {
+      "author": "midoks",
+      "checks": "server/varnish",
+      "date": "2022-06-11",
+      "display": 1,
+      "home": "https://varnish-cache.org",
+      "name": "varnish",
+      "path": "server/varnish",
+      "pid": "4",
+      "ps": "一款高性能的开源HTTP加速器",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "varnish",
+      "type": 0,
+      "updates": [
+        "1.0"
+      ],
+      "versions": [
+        "1.0"
+      ]
+    },
+    {
+      "author": "Zend",
+      "checks": "server/redis",
+      "date": "2017-04-01",
+      "display": 1,
+      "home": "https://redis.io",
+      "name": "redis",
+      "path": "server/redis",
+      "pid": "2",
+      "ps": "一个高性能的KV数据库",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "Redis",
+      "type": 0,
+      "updates": [
+        "4.0.11",
+        "5.0.8",
+        "6.0.4",
+        "6.2.7",
+        "7.0.12",
+        "7.2.2"
+      ],
+      "versions": [
+        "4.0.11",
+        "5.0.8",
+        "6.0.4",
+        "6.2.7",
+        "7.0.12",
+        "7.2.2"
+      ]
+    },
+    
+    {
+      "author": "",
+      "checks": "server/webhook",
+      "date": "2022-11-02",
+      "display": 1,
+      "home": "",
+      "name": "webhook",
+      "path": "server/webhook",
+      "pid": "4",
+      "ps": "WebHook，可设置回调脚本，通常用于第三方回调通知!",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "WebHook",
+      "type": 0,
+      "updates": [
+        "1.0"
+      ],
+      "versions": [
+        "1.0"
+      ]
+    },
+    {
+      "author": "memcached",
+      "checks": "server/memcached",
+      "date": "2017-04-01",
+      "display": 1,
+      "home": "http://memcached.org/",
+      "name": "memcached",
+      "path": "server/memcached",
+      "pid": "2",
+      "ps": "是一个高性能的分布式内存对象缓存系统",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "Memcached",
+      "type": 0,
+      "updates": [
+        "1.6.21"
+      ],
+      "versions": [
+        "1.6"
+      ]
+    },
+    {
+      "author": "Zend",
+      "checks": "server/docker",
+      "date": "2017-04-01",
+      "display": 1,
+      "doc1": "https://docker-py.readthedocs.io/",
+      "home": "https://docker.io",
+      "name": "docker",
+      "path": "server/docker",
+      "pid": "4",
+      "ps": "Docker是一个开源的应用容器引擎",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "Docker",
+      "type": 0,
+      "updates": [
+        "1.0"
+      ],
+      "versions": [
+        "1.0"
+      ]
+    },
+    {
+      "author": "midoks",
+      "checks": "server/webstats",
+      "date": "2022-07-18",
+      "display": 1,
+      "home": "https://github.com/midoks/mdserver-web",
+      "hook": [
+        {
+          "site_cb": {
+            "add": {
+              "func": "reload"
+            },
+            "delete": {
+              "func": "reload"
+            },
+            "name": "webstats",
+            "title": "网站统计",
+            "update": {
+              "func": "reload"
+            }
+          },
+          "tag": "site_cb"
+        }
+      ],
+      "install_pre_inspection": true,
+      "name": "webstats",
+      "path": "server/webstats",
+      "pid": "1",
+      "ps": "网站统计报表",
+      "shell": "install.sh",
+      "sort": "7",
+      "tip": "soft",
+      "title": "网站统计",
+      "type": 0,
+      "versions": [
+        "0.2.5"
+      ]
+    },
+    {
+      "author": "midoks",
+      "checks": "server/nezha",
+      "date": "2023-06-26",
+      "display": 1,
+      "doc1": "https://nezha.wiki/",
+      "home": "https://github.com/midoks/nezha",
+      "name": "nezha",
+      "path": "server/nezha",
+      "pid": "5",
+      "ps": "哪吒监控面板/改造版",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "哪吒监控",
+      "type": 0,
+      "versions": [
+        "0.15.2"
+      ]
+    },
+    {
+      "author": "midoks",
+      "checks": "server/xhprof",
+      "date": "2020-07-12",
+      "home": "http://pecl.php.net/package/xhprof",
+      "install_pre_inspection": true,
+      "name": "xhprof",
+      "path": "server/xhprof",
+      "pid": "1",
+      "ps": "PHP性能瓶颈查找工具",
+      "shell": "install.sh",
+      "tip": "soft",
+      "title": "xhprof",
+      "to_ver": [
+        "1.0"
+      ],
+      "type": "运行环境",
+      "updates": [
+        "1.0"
+      ],
+      "versions": [
+        "1.0"
+      ]
+    },
+    {
+      "author": "python",
+      "checks": "server/supervisor",
+      "date": "2022-06-15",
+      "display": 1,
+      "home": "https://pypi.org/project/supervisor/",
+      "name": "supervisor",
+      "path": "server/supervisor",
+      "pid": "4",
+      "ps": "一个Python开发的通用的进程管理程序",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "supervisor",
+      "type": 0,
+      "updates": [
+        "1.0"
+      ],
+      "versions": [
+        "1.0"
+      ]
+    },
+    {
+      "author": "midoks",
+      "checks": "server/tgclient",
+      "date": "2023-03-06",
+      "depend_doc1": "https://docs.telethon.dev/en/stable/basic/installation.html",
+      "display": 1,
+      "home": "https://my.telegram.org/apps",
+      "install_pre_inspection": true,
+      "name": "tgclient",
+      "path": "server/tgclient",
+      "pid": "5",
+      "ps": "简单Telegram客服端管理",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "tgclient",
+      "type": 0,
+      "uninstall_pre_inspection": true,
+      "versions": [
+        "1.1"
+      ]
+    },
+    
+    {
+      "author": "mongodb",
+      "checks": "server/mongodb",
+      "date": "2021-11-23",
+      "display": 1,
+      "home": "https://www.mongodb.com/docs/v4.4/installation/",
+      "install_pre_inspection": true,
+      "name": "mongodb",
+      "path": "server/mongodb",
+      "pid": "2",
+      "ps": "一个高性能的NOSQL数据库",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "Mongodb",
+      "type": 0,
+      "versions": [
+        "4.4",
+        "5.0",
+        "6.0",
+        "7.0"
+      ]
+    },
+    {
+      "author": "midoks",
+      "checks": "server/system_safe",
+      "date": "2022-01-12",
+      "display": 1,
+      "home": "",
+      "icon": "ico.png",
+      "name": "system_safe",
+      "path": "server/system_safe",
+      "pid": "4",
+      "ps": "提供灵活的系统加固功能，防止系统被植入木马，支持服务器日志审计功能",
+      "shell": "install.sh",
+      "sort": 1,
+      "tip": "soft",
+      "title": "系统加固",
+      "type": 0,
+      "updates": [
+        "1.0"
+      ],
+      "versions": [
+        "1.0"
+      ]
+    },
+    {
+      "author": "midoks",
+      "checks": "server/imail",
+      "date": "2022-09-26",
+      "display": 1,
+      "home": "https://github.com/midoks/mdserver-web",
+      "name": "imail",
+      "path": "server/imail",
+      "pid": "5",
+      "ps": "[<b style='color:red;'>DEV</b>]简单邮件服务",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "邮件服务",
+      "type": 0,
+      "updates": [
+        "0.0.19"
+      ],
+      "versions": [
+        "0.0.19"
+      ]
+    },
+    {
+      "author": "midoks",
+      "checks": "server/migration_api",
+      "date": "2022-01-17",
+      "display": 1,
+      "home": "https://github.com/midoks/mdserver-web",
+      "name": "migration_api",
+      "path": "server/migration_api",
+      "pid": "4",
+      "ps": "[<span style='color:red;'>潜龙勿用</span>]一键迁移,仅网站数据和MySQL数据(仅支持源码安装软件)",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "一键迁移API",
+      "type": 0,
+      "updates": [
+        "1.0"
+      ],
+      "versions": [
+        "1.0"
+      ]
+    },
+    {
+      "author": "gitea",
+      "checks": "server/gitea",
+      "date": "2022-10-03",
+      "home": "https://dl.gitea.io/",
+      "install_pre_inspection": false,
+      "name": "gitea",
+      "path": "server/gitea",
+      "pid": "3",
+      "ps": "Gitea是一个开源社区驱动的轻量级代码托管解决方案。",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "Gitea",
+      "type": "Git服务器",
+      "uninstall_pre_inspection": true,
+      "versions": [
+        "1.17.2",
+        "1.18.5"
+      ]
+    },
+    {
+      "author": "keepalived",
+      "checks": "server/keepalived",
+      "date": "2023-10-22",
+      "display": 1,
+      "home": "https://keepalived.org/download.html",
+      "name": "keepalived",
+      "path": "server/keepalived",
+      "pid": "4",
+      "ps": "[<span style='color:red;'>内网</span>]优秀的高可用软件",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "keepalived",
+      "type": "soft",
+      "versions": [
+        "2.2.8"
+      ]
+    },
+    
+    {
+      "author": "postgresql",
+      "checks": "server/postgresql",
+      "coexist": false,
+      "date": "2022-08-07",
+      "home": "https://www.postgresql.org/",
+      "hook": [
+        "database"
+      ],
+      "install_pre_inspection": true,
+      "name": "postgresql",
+      "path": "server/postgresql",
+      "pid": "2",
+      "ps": "[DEV]功能强大的开源数据库",
+      "shell": "install.sh",
+      "tip": "soft",
+      "title": "PostgreSQL",
+      "type": "运行环境",
+      "uninstall_pre_inspection": true,
+      "versions": [
+        "14.4"
+      ]
+    },
+    {
+      "author": "midoks",
+      "checks": "server/php-guard",
+      "date": "2019-03-01",
+      "display": 1,
+      "home": "https://github.com/midoks",
+      "name": "php-guard",
+      "path": "server/php-guard",
+      "pid": "1",
+      "ps": "监控PHP-FPM运行状态，防止大批量出现502错误!",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "PHP守护",
+      "type": "语言解释器",
+      "updates": "1.0",
+      "versions": "1.0"
+    },
+    {
+      "author": "midoks",
+      "checks": "server/backup_ftp",
+      "date": "2022-10-23",
+      "home": "https://github.com/midoks/mdserver-web",
+      "hook": [
+        "backup"
+      ],
+      "install_pre_inspection": false,
+      "name": "backup_ftp",
+      "path": "server/backup_ftp",
+      "pid": "4",
+      "ps": "将网站或数据库打包备份到FTP存储空间",
+      "shell": "install.sh",
+      "tip": "soft",
+      "title": "FTP存储空间",
+      "type": "运行环境",
+      "versions": [
+        "1.0"
+      ]
+    },
+    {
+      "author": "midoks",
+      "checks": "server/data_query",
+      "date": "2024-01-22",
+      "display": 1,
+      "hook": [
+        {
+          "menu": {
+            "css_path": "static/css/data.css",
+            "js_path": "static/js/app.js",
+            "name": "data_query",
+            "path": "static/html/index.html",
+            "title": "数据管理"
+          },
+          "tag": "menu"
+        },
+        {
+          "global_static": {
+            "css_path": "static/css/ico.css",
+            "name": "data_query",
+            "title": "数据管理"
+          },
+          "tag": "global_static"
+        }
+      ],
+      "name": "data_query",
+      "path": "server/data_query",
+      "pid": "2",
+      "ps": "数据简单管理(memcached,redis,mongodb)",
+      "shell": "install.sh",
+      "sort": 7,
+      "tip": "soft",
+      "title": "数据管理",
+      "type": 0,
+      "versions": "1.0"
+    }
+  ]

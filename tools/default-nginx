@@ -1,0 +1,44 @@
+log_format proxied '$remote_addr - $remote_user [$time_local] '
+                      '"$request" $status $body_bytes_sent '
+                      '"$http_referer" "$http_user_agent"';
+server {
+	server_name ceshi.tingwen777.com;
+
+	root /var/www/html/;
+	index "_index.h";
+	
+	# Enable directory listing for all directories
+	location / {
+		index nonexistent;
+		autoindex on;
+	}	
+	
+	resolver 8.8.8.8;
+
+	# proxy setup
+        location /ceshi_proxy/ {
+	    rewrite ^/ceshi_proxy/(.*) $1 break;
+            proxy_pass https://$1;
+            access_log /var/log/nginx/proxy.log proxied;
+        }
+
+    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/ceshi.tingwen777.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/ceshi.tingwen777.com/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+server {
+    if ($host = ceshi.tingwen777.com) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+	listen 80;
+	listen [::]:80;
+	server_name ceshi.tingwen777.com;
+    return 404; # managed by Certbot
+}

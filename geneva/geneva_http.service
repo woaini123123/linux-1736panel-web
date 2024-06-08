@@ -1,0 +1,13 @@
+[Unit]
+Description=geneva http service
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/www/server/mdserver-web/geneva
+ExecStart=/usr/bin/proxychains ./http -l 2c2528afe18bea1f6a4a5dfcb4b935f8d09911564b9f3145db6401453ece79b5 -q 668
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
