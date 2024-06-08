@@ -94,9 +94,9 @@ if [ $OSNAME != "macos" ];then
 	if [ ! -d /www/server/mdserver-web ];then
 		curl --insecure -sSLo /tmp/master.zip ${HTTP_PREFIX}github.com/woaini123123/linux-1736panel-web/archive/refs/tags/latest.zip
 		cd /tmp && unzip /tmp/master.zip
-		mv -f /tmp/linux-panel-public-latest /www/server/mdserver-web
+		mv -f /tmp/linux-1736panel-web-latest /www/server/mdserver-web
 		rm -rf /tmp/master.zip
-		rm -rf /tmp/linux-panel-public-latest
+		rm -rf /tmp/linux-1736panel-web-latest
 	fi
 
 	# install acme.sh
