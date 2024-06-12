@@ -117,11 +117,6 @@ fi
 echo "use system version: ${OSNAME}"
 cd /www/server/mdserver-web && bash scripts/install/${OSNAME}.sh
 
-echo "install geneva"
-cp /www/server/mdserver-web/geneva/geneva_http* /usr/lib/systemd/system/
-systemctl enable geneva_http.service
-systemctl enable geneva_https.service
-systemctl daemon-reload
 
 echo "setup pyarmor runtime"
 export PYTHONPATH=/www/server/mdserver-web/pyarmor_runtime_0000000:$PYTHONPATH
