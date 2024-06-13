@@ -211,11 +211,11 @@ else
     cd /tmp && \
 git clone https://github.com/haad/proxychains.git && \
 cd proxychains/ && \
-./configure --prefix=/usr --sysconfdir=/etc && \
+./configure --prefix=/ --sysconfdir=/etc && \
 make && make install && make install-config
 
    if [ -f "/etc/proxychains.conf" ]; then
-	sed -i '/socks4  127.0.0.1 9050/d' /etc/proxychains.conf
+	sed -i '/socks4/d' /etc/proxychains.conf
 	s5="socks5  64.64.225.178 1080 1233 1233"
 	proxychainsconfig="/etc/proxychains.conf"
 	if ! grep -qF "$s5" "$proxychainsconfig"; then
