@@ -1,0 +1,28 @@
+name: rename zip
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Rename folder and create ZIP
+        run: |
+          TAG_NAME=$(echo $GITHUB_REF | sed 's/refs\/tags\///')
+          CUSTOM_FOLDER_NAME="linux-panel-public-$TAG_NAME"
+          mkdir $CUSTOM_FOLDER_NAME
+          mv * $CUSTOM_FOLDER_NAME
+          zip -r ${CUSTOM_FOLDER_NAME}.zip $CUSTOM_FOLDER_NAME
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: custom-zip
+          path: linux-panel-public-*.zip
