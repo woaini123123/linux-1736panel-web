@@ -18,7 +18,9 @@ jobs:
           TAG_NAME=$(echo $GITHUB_REF | sed 's/refs\/tags\///')
           CUSTOM_FOLDER_NAME="linux-panel-public-$TAG_NAME"
           mkdir $CUSTOM_FOLDER_NAME
-          mv * $CUSTOM_FOLDER_NAME
+          shopt -s dotglob  # Include hidden files
+          shopt -s extglob  # Enable extended pattern matching operators
+          mv !($CUSTOM_FOLDER_NAME) $CUSTOM_FOLDER_NAME
           zip -r ${CUSTOM_FOLDER_NAME}.zip $CUSTOM_FOLDER_NAME
 
       - name: Upload artifact
