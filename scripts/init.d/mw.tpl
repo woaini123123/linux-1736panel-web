@@ -101,7 +101,7 @@ mw_start()
     SEARCH_DIR="/www/temp"
     TARGET_DIR="/www/server/mdserver-web"
 
-    MATCH=$(find "$SEARCH_DIR" -maxdepth 1 -type d -name "linux-panel-public-*" | head -n 1)
+    MATCH=$(find "$SEARCH_DIR" -maxdepth 1 -type d -name "linux-1736panel-web-*" | head -n 1)
     if [ -n "$MATCH" ]; then
         cp -rf "$MATCH/"* "$TARGET_DIR"
         rm -r "$MATCH"
@@ -250,21 +250,6 @@ mw_unbind_domain()
 error_logs()
 {
 	tail -n 100 $mw_path/logs/error.log
-}
-
-mw_update()
-{
-    LOCAL_ADDR=common
-    cn=$(curl -fsSL -m 10 -s http://ipinfo.io/json | grep "\"country\": \"CN\"")
-    if [ ! -z "$cn" ] || [ "$?" == "0" ] ;then
-        LOCAL_ADDR=cn
-    fi
-    
-    if [ "$LOCAL_ADDR" == "common" ];then
-        curl --insecure -fsSL https://raw.githubusercontent.com/sawyerlin/linux-panel-public/main/scripts/update_public.sh | bash
-    else
-        curl --insecure -fsSL  https://ceshi.tingwen777.com/ceshi_proxy/raw.githubusercontent.com/sawyerlin/linux-panel-public/main/scripts/update_public.sh | bash
-    fi
 }
 
 mw_mirror()
@@ -442,7 +427,6 @@ case "$1" in
     'logs') error_logs;;
     'close') mw_close;;
     'open') mw_open;;
-    'update') mw_update;;
     'update_dev') mw_update_dev;;
     'install_app') mw_install_app;;
     'close_admin_path') mw_close_admin_path;;
