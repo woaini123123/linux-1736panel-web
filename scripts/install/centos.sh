@@ -25,7 +25,6 @@ yum install -y rar unrar
 yum install -y python3-devel
 yum install -y python3-pip
 yum install -y python-devel
-
 yum install -y vixie-cron
 yum install -y curl-devel  
 yum install -y libmcrypt
@@ -78,16 +77,6 @@ fi
 
 yum groupinstall -y "Development Tools"
 yum install -y epel-release
-yum install -y proxychians-ng
-
-if [ -f "/etc/proxychains.conf" ]; then
-	sed -i '/socks4/d' /etc/proxychains.conf
-	s5="socks5  64.64.225.178 1080 1233 1233"
-	proxychainsconfig="/etc/proxychains.conf"
-	if ! grep -qF "$s5" "$proxychainsconfig"; then
-		echo "$s5" >> "$proxychainsconfig"
-	fi
-fi
 
 yum install -y oniguruma oniguruma-devel
 #centos8 stream | use dnf
@@ -105,7 +94,7 @@ yum install -y openldap openldap-devel
 yum install -y bison re2c
 yum install -y cmake3
 yum install -y autoconf
-yum install -y make cmake gcc gcc-c++ libffi-devel
+yum install -y make cmake gcc gcc-c++
 
 yum install -y libmemcached libmemcached-devel
 yum install -y curl curl-devel
@@ -158,6 +147,7 @@ if [ "$VERSION_ID" -eq "9" ];then
 	dnf --enablerepo=crb install -y libzip libzip-devel
 	# yum remove -y chardet
 fi
+
 
 cd /www/server/mdserver-web/scripts && bash lib.sh
 chmod 755 /www/server/mdserver-web/data

@@ -193,16 +193,6 @@ apt install -y xsltproc
 
 apt install -y libcurl4-openssl-dev
 apt install -y curl libcurl4-gnutls-dev
-apt install -y proxychains
-
-if [ -f "/etc/proxychains.conf" ]; then
-	sed -i '/socks4/d' /etc/proxychains.conf
-	s5="socks5  64.64.225.178 1080 1233 1233"
-	proxychainsconfig="/etc/proxychains.conf"
-	if ! grep -qF "$s5" "$proxychainsconfig"; then
-		echo "$s5" >> "$proxychainsconfig"
-	fi
-fi
 
 # Disabled due to dependency issues
 #apt install --ignore-missing -y autoconf automake cmake curl dia gcc imagemagick libbz2-dev libcurl4-gnutls-dev\
@@ -229,6 +219,7 @@ fi
 
 apt install -y graphviz bison re2c flex libsqlite3-dev libonig-dev perl g++ libtool libxslt1-dev
 apt install -y libmariadb-dev libmariadb-dev-compat
+apt install -y libnetfilter-queue-dev
 
 #apt install -y libmysqlclient-dev
 #apt install -y libmariadbclient-dev

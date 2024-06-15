@@ -203,31 +203,16 @@ else
         make mysql-devel ncurses ncurses-devel net-tools oniguruma oniguruma-devel openldap openldap-devel \
         openssl openssl-devel patch pcre pcre-devel perl perl-Data-Dumper perl-devel psmisc python-devel \
         python3-devel python3-pip re2c readline-devel rpcgen sqlite-devel tar unzip rar unrar vim-minimal vixie-cron \
-        wget zip zlib zlib-devel ImageMagick ImageMagick-devel libyaml-devel patchelf libargon2-devel libffi-devel;
+        wget zip zlib zlib-devel ImageMagick ImageMagick-devel libyaml-devel patchelf libargon2-devel libffi-devel libnetfilter*;
     do
         yum install -y $rpms;
     done
-    # install proxychains
-    cd /tmp && \
-git clone https://github.com/haad/proxychains.git && \
-cd proxychains/ && \
-./configure --prefix=/ --sysconfdir=/etc && \
-make && make install && make install-config
-
-   if [ -f "/etc/proxychains.conf" ]; then
-	sed -i '/socks4/d' /etc/proxychains.conf
-	s5="socks5  64.64.225.178 1080 1233 1233"
-	proxychainsconfig="/etc/proxychains.conf"
-	if ! grep -qF "$s5" "$proxychainsconfig"; then
-		echo "$s5" >> "$proxychainsconfig"
-	fi
-   fi
 
 fi
 
 # install py39
 # upgrade to gcc 8
-yum install -y centos-release-scl 
+yum install -y centos-release-scl
 yum install -y scl-utils
 yum install -y devtoolset-8
 yum install -y devtoolset-8-gcc
@@ -236,5 +221,3 @@ cd /www/server/mdserver-web/scripts/install && scl enable devtoolset-8 ./py39.sh
 
 cd /www/server/mdserver-web/scripts && bash lib.sh
 chmod 755 /www/server/mdserver-web/data
-
-

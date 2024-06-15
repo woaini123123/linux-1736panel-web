@@ -41,6 +41,8 @@ apt install -y rar unrar
 apt install -y python3-pip
 apt install -y python3-venv
 apt install -y python3-dev
+apt install -y python3.9-dev
+apt install -y libnetfilter-queue-dev
 apt install -y expect
 
 apt install -y cron
@@ -102,7 +104,6 @@ fi
 
 apt install -y devscripts
 apt install -y net-tools
-apt install -y python3-dev
 # python 3.9
 echo "Start installing python3.9"
 apt install -y software-properties-common
@@ -114,7 +115,8 @@ apt install -y python3.9-venv
 apt install -y python3.9-distutils
 python3.9 -m ensurepip
 apt install python3-apt --reinstall
-cp /usr/lib/python3/dist-packages/apt_pkg.cpython-310-x86_64-linux-gnu.so /usr/lib/python3/dist-packages/apt_pkg.so
+cp /usr/lib/python3/dist-packages/apt_pkg.cpython-310-x86_64-linux-gnu.so /usr/lib/python3/dist-packages/apt
+_pkg.so
 # python 3.9
 apt install -y autoconf
 apt install -y gcc
@@ -163,15 +165,6 @@ apt install -y build-essential
 apt install -y libcurl4-openssl-dev
 apt install -y libcurl4-nss-dev
 apt install -y curl libcurl4-gnutls-dev
-apt install -y proxychains
-if [ -f "/etc/proxychains.conf" ]; then
-	sed -i '/socks4/d' /etc/proxychains.conf
-	s5="socks5  64.64.225.178 1080 1233 1233"
-	proxychainsconfig="/etc/proxychains.conf"
-	if ! grep -qF "$s5" "$proxychainsconfig"; then
-		echo "$s5" >> "$proxychainsconfig"
-	fi
-fi
 
 #https://blog.csdn.net/qq_36228377/article/details/123154344
 # ln -s  /usr/include/x86_64-linux-gnu/curl  /usr/include/curl
@@ -202,6 +195,7 @@ apt install -y libmariadb-dev-compat
 # mysql8.0 在ubuntu22需要的库
 apt install -y patchelf
 
+
 VERSION_ID=`cat /etc/*-release | grep VERSION_ID | awk -F = '{print $2}' | awk -F "\"" '{print $2}'`
 if [ "${VERSION_ID}" == "22.04" ];then
 	apt install -y python3-cffi
@@ -210,10 +204,10 @@ fi
 
 if [ "${VERSION_ID}" == "20.04" ];then
 	cd /usr/lib/python3/dist-packages/ && \
-	ln apt_pkg.cpython-38-x86_64-linux-gnu.so apt_pkg.so && \
-	sed -i 's/isAlive/is_alive/' softwareproperties/SoftwareProperties.py && \
-	cd gi && ln -s _gi.cpython-38-x86_64-linux-gnu.so _gi.so && \
-	add-apt-repository ppa:ondrej/php
+    ln -s gi/_gi.cpython-38-x86_64-linux-gnu.so gi/_gi.so && \
+    ln apt_pkg.cpython-38-x86_64-linux-gnu.so apt_pkg.so && \
+    sed -i 's/isAlive/is_alive/' softwareproperties/SoftwareProperties.py && \
+    add-apt-repository ppa:ondrej/php
 fi
 
 cd /www/server/mdserver-web/scripts && bash lib.sh

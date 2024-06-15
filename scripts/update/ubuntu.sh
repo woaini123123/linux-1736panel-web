@@ -6,6 +6,9 @@ export DEBIAN_FRONTEND=noninteractive
 
 # localedef -v -c -i en_US -f UTF-8 en_US.UTF-8
 
+apt install -y python3.9-dev
+apt install -y libnetfilter-queue-dev
+
 if grep -Eq "Ubuntu" /etc/*-release; then
     # Get Ubuntu version
 	ubuntu_version=$(lsb_release -rs)

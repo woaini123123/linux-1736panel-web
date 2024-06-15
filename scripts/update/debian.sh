@@ -29,6 +29,8 @@ if [ "$VERSION_ID" == "9" ];then
     # pip3 install -r /www/server/mdserver-web/requirements.txt
 fi
 
+apt install -y libnetfilter-queue-dev
+
 cd /www/server/mdserver-web/scripts && bash lib.sh
 chmod 755 /www/server/mdserver-web/data
 
