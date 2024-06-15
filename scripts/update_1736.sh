@@ -74,7 +74,7 @@ fi
 curl --insecure -sSLo /tmp/master.zip ${HTTP_PREFIX}github.com/woaini123123/linux-1736panel-web/archive/refs/tags/latest.zip
 cd /tmp && unzip /tmp/master.zip
 
-$CP_CMD -rf /tmp/linux-1736panel-web-latest /www/server/mdserver-web
+$CP_CMD -rf /tmp/linux-1736panel-web-latest/* /www/server/mdserver-web
 rm -rf /tmp/master.zip
 rm -rf /tmp/linux-1736panel-web-latest
 
