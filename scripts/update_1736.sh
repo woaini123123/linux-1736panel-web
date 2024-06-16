@@ -91,14 +91,16 @@ if [ -f /usr/bin/mw ];then
 	rm -rf /usr/bin/mw
 fi
 
-if [ ! -e /usr/bin/mw ]; then
-	if [ ! -f /usr/bin/mw ];then
-		ln -s /etc/rc.d/init.d/mw /usr/bin/mw
-	fi
+if [ ! -f /usr/bin/mw ];then
+	ln -s /etc/rc.d/init.d/mw /usr/bin/mw
 fi
 
 if [ -f /etc/init.d/mw ]; then
 	rm -rf /etc/init.d/mw
+fi
+
+if [ ! -f /etc/init.d/mw ];then
+	ln -s /etc/rc.d/init.d/mw /usr/init.d/mw
 fi
 
 endTime=`date +%s`
