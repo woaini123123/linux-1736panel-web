@@ -97,6 +97,10 @@ if [ ! -e /usr/bin/mw ]; then
 	fi
 fi
 
+if [ -f /etc/init.d/mw ]; then
+	rm -rf /etc/init.d/mw
+fi
+
 endTime=`date +%s`
 ((outTime=($endTime-$startTime)/60))
 echo -e "Time consumed:\033[32m $outTime \033[0mMinute!"
