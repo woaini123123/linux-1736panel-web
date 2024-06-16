@@ -119,8 +119,8 @@ cd /www/server/mdserver-web && bash scripts/install/${OSNAME}.sh
 
 
 echo "setup pyarmor runtime"
-export PYTHONPATH=/www/server/mdserver-web/pyarmor_runtime_0000000:$PYTHONPATH
-grep -qxF 'export PYTHONPATH=/www/server/mdserver-web/pyarmor_runtime_0000000:$PYTHONPATH' ~/.bashrc || echo 'export PYTHONPATH=/www/server/mdserver-web/pyarmor_runtime_0000000:$PYTHONPATH' >> ~/.bashrc
+export PYTHONPATH=/www/server/mdserver-web/1736
+grep -qxF 'export PYTHONPATH=/www/server/mdserver-web/1736' ~/.bashrc || echo 'export PYTHONPATH=/www/server/mdserver-web/1736' >> ~/.bashrc
 
 
 if [ "${OSNAME}" == "macos" ];then

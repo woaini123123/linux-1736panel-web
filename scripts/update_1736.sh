@@ -82,7 +82,7 @@ rm -rf /tmp/linux-1736panel-web-latest
 echo "use system version: ${OSNAME}"
 cd /www/server/mdserver-web && bash scripts/update/${OSNAME}.sh
 
-export PYTHONPATH=/www/server/mdserver-web/pyarmor_runtime_0000000:$PYTHONPATH
+export PYTHONPATH=/www/server/mdserver-web/1736
 
 bash /etc/rc.d/init.d/mw restart
 bash /etc/rc.d/init.d/mw default
