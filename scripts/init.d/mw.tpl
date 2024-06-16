@@ -103,8 +103,8 @@ mw_start()
     UPDATE_SCRIPT="${TARGET_DIR}/scripts/update_1736.sh"
 
     if [ -f "$UPDATE_FILE" ]; then
-        source $UPDATE_SCRIPT
         rm "$UPDATE_FILE"
+        source $UPDATE_SCRIPT
     fi
 
     mw_start_task
