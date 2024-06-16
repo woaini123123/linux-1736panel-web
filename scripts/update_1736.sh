@@ -82,7 +82,9 @@ rm -rf /tmp/linux-1736panel-web-latest
 echo "use system version: ${OSNAME}"
 cd /www/server/mdserver-web && bash scripts/update/${OSNAME}.sh
 
-export PYTHONPATH=/www/server/mdserver-web/1736
+echo "setup pyarmor runtime"
+export PYTHONPATH=/www/server/mdserver-web/pyarmor_runtime_005762
+grep -qxF 'export PYTHONPATH=/www/server/mdserver-web/pyarmor_runtime_005762' ~/.bashrc || echo 'export PYTHONPATH=/www/server/mdserver-web/pyarmor_runtime_005762' >> ~/.bashrc
 
 bash /etc/rc.d/init.d/mw restart
 bash /etc/rc.d/init.d/mw default
