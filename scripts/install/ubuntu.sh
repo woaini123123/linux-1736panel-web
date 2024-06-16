@@ -41,7 +41,6 @@ apt install -y rar unrar
 apt install -y python3-pip
 apt install -y python3-venv
 apt install -y python3-dev
-apt install -y python3.9-dev
 apt install -y libnetfilter-queue-dev
 apt install -y expect
 
@@ -117,6 +116,7 @@ python3.9 -m ensurepip
 apt install python3-apt --reinstall
 cp /usr/lib/python3/dist-packages/apt_pkg.cpython-310-x86_64-linux-gnu.so /usr/lib/python3/dist-packages/apt
 _pkg.so
+apt install -y python3.9-dev
 # python 3.9
 apt install -y gcc
 apt install -y lrzsz
