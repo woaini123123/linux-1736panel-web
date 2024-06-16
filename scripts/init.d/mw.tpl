@@ -98,41 +98,13 @@ mw_start_task()
 mw_start()
 {
     # only for update
-    SEARCH_DIR="/www/temp"
     TARGET_DIR="/www/server/mdserver-web"
+    UPDATE_FILE="${TARGET_DIR}/data/update.pl"
+    UPDATE_SCRIPT="${TARGET_DIR}/scripts/update_1736.sh"
 
-    MATCH=$(find "$SEARCH_DIR" -maxdepth 1 -type d -name "linux-1736panel-web-*" | head -n 1)
-    if [ -n "$MATCH" ]; then
-        cp -rf "$MATCH/"* "$TARGET_DIR"
-        rm -r "$MATCH"
-        if [ $? -eq 0 ]; then
-            echo "Successfully copied contents of $MATCH to $TARGET_DIR"
-            if [ ! -f /www/server/mdserver-web/bin/activate ];then
-                cd /www/server/mdserver-web && python3 -m venv .
-                cd /www/server/mdserver-web && source bin/activate
-            else
-                cd /www/server/mdserver-web && source bin/activate
-            fi
-
-            cn=$(curl -fsSL -m 10 http://ipinfo.io/json | grep "\"country\": \"CN\"")
-            PIPSRC="https://pypi.python.org/simple"
-            if [ ! -z "$cn" ];then
-                PIPSRC="https://pypi.tuna.tsinghua.edu.cn/simple"
-            fi
-
-            cd /www/server/mdserver-web && pip3 install -r requirements.txt -i $PIPSRC
-
-            P_VER=`python3 -V | awk '{print $2}'`
-            P_VER_D=`echo "$P_VER"|awk -F '.' '{print $1}'`
-            P_VER_M=`echo "$P_VER"|awk -F '.' '{print $2}'`
-            NEW_P_VER=${P_VER_D}.${P_VER_M}
-
-            if [ -f /www/server/mdserver-web/version/r${NEW_P_VER}.txt ];then
-                cd /www/server/mdserver-web && pip3 install -r version/r${NEW_P_VER}.txt -i $PIPSRC
-            fi
-        else
-            echo "Failed to copy contents of $MATCH to $TARGET_DIR"
-        fi
+    if [ -f "$UPDATE_FILE" ]; then
+        source $UPDATE_SCRIPT
+        rm "$UPDATE_FILE"
     fi
 
     mw_start_task
