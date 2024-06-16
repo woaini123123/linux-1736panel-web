@@ -100,7 +100,7 @@ if [ -f /etc/init.d/mw ]; then
 fi
 
 if [ ! -f /etc/init.d/mw ];then
-	ln -s /etc/rc.d/init.d/mw /usr/init.d/mw
+	ln -s /etc/rc.d/init.d/mw /etc/init.d/mw
 fi
 
 endTime=`date +%s`
