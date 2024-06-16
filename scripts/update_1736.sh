@@ -83,8 +83,8 @@ echo "use system version: ${OSNAME}"
 cd /www/server/mdserver-web && bash scripts/update/${OSNAME}.sh
 
 echo "setup pyarmor runtime"
-export PYTHONPATH=/www/server/mdserver-web/pyarmor_runtime_005762
-grep -qxF 'export PYTHONPATH=/www/server/mdserver-web/pyarmor_runtime_005762' ~/.bashrc || echo 'export PYTHONPATH=/www/server/mdserver-web/pyarmor_runtime_005762' >> ~/.bashrc
+export PYTHONPATH=/www/server/mdserver-web
+grep -qxF 'export PYTHONPATH=/www/server/mdserver-web' ~/.bashrc || echo 'export PYTHONPATH=/www/server/mdserver-web' >> ~/.bashrc
 
 bash /etc/rc.d/init.d/mw restart
 bash /etc/rc.d/init.d/mw default
