@@ -296,6 +296,7 @@ var lan = {
 		"pass_re":"重复",
 		"pass_re_title":"再输一次",
 		"pass_rep_ps":"请在修改前记录好您的新密码!",
+		"pass_rep_dns_code":"请在修改前记录好您的新DNS识别码!",
 		"user_len":"用户名长度不能少于3位",
 		"user_err_re":"两次输入的用户名不一致",
 		"user_title":"修改面板用户名",

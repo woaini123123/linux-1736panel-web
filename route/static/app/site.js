@@ -661,6 +661,8 @@ function getDNSBtn(is_exist, domain_name) {
 	btn = "<a class='btlink' href='javascript:;' onclick='addDomain(\"" + domain_name + "\")'>添加</a>"
 	if (is_exist) {
 		btn = "<a class='btlink' href='javascript:;' onclick='getRecords(\"" + domain_name + "\")'>解析</a>"
+	} else if (is_exist == undefined) {
+		return "<span>Please configure DNS识别码</span>"
 	}
 	return btn
 }
