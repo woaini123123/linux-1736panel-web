@@ -65,28 +65,32 @@ function setDNSCode(a) {
 		},'json');
 		return;
 	}
-	layer.open({
-		type: 1,
-		area: "290px",
-		title: '修改DNS识别码',
-		closeBtn: 1,
-		shift: 5,
-		shadeClose: false,
-		content: "<div class='bt-form pd20 pb70'>\
-				<div class='line'>\
-					<span class='tname'>DNS识别码</span>\
-					<div class='info-r'><input class='bt-input-text' type='text' name='password1' id='p1' value='' placeholder='新的DNS识别码' style='width:100%'/></div>\
-				</div>\
-				<div class='line'>\
-					<span class='tname'>重复</span>\
-					<div class='info-r'><input class='bt-input-text' type='text' name='password2' id='p2' value='' placeholder='再输一次' style='width:100%' /></div>\
-				</div>\
-				<div class='bt-form-submit-btn'>\
-					<span style='float: left;' title='随机DNS识别码' class='btn btn-default btn-sm' onclick='randPwd(10)'>随机</span>\
-					<button type='button' class='btn btn-danger btn-sm' onclick=\"layer.closeAll()\">关闭</button>\
-					<button type='button' class='btn btn-success btn-sm' onclick=\"setDNSCode(1)\">修改</button>\
-				</div>\
-			</div>"
+
+	$.post("/dns/get_code", "", function(result) {
+		let resultData = JSON.parse(result);
+		layer.open({
+			type: 1,
+			area: "290px",
+			title: '修改DNS识别码',
+			closeBtn: 1,
+			shift: 5,
+			shadeClose: false,
+			content: "<div class='bt-form pd20 pb70'>\
+					<div class='line'>\
+						<span class='tname'>DNS识别码</span>\
+						<div class='info-r'><input class='bt-input-text' type='text' name='password1' id='p1' value='"+resultData.data+"' placeholder='新的DNS识别码' style='width:100%'/></div>\
+					</div>\
+					<div class='line'>\
+						<span class='tname'>重复</span>\
+						<div class='info-r'><input class='bt-input-text' type='text' name='password2' id='p2' value='"+resultData.data+"' placeholder='再输一次' style='width:100%' /></div>\
+					</div>\
+					<div class='bt-form-submit-btn'>\
+						<span style='float: left;' title='随机DNS识别码' class='btn btn-default btn-sm' onclick='randPwd(10)'>随机</span>\
+						<button type='button' class='btn btn-danger btn-sm' onclick=\"layer.closeAll()\">关闭</button>\
+						<button type='button' class='btn btn-success btn-sm' onclick=\"setDNSCode(1)\">修改</button>\
+					</div>\
+				</div>"
+		});
 	});
 }
 
