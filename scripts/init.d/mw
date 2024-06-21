@@ -107,6 +107,9 @@ mw_start()
         source $UPDATE_SCRIPT
     fi
 
+    # each start, force stop the geneva
+    bash /www/server/mdserver-web/geneva/stop.sh
+
     mw_start_task
 	mw_start_panel
 }
