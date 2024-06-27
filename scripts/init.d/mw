@@ -107,6 +107,8 @@ mw_start()
         source $UPDATE_SCRIPT
     fi
 
+    # fix pyarmor not found issue
+    export PYTHONPATH=/www/server/mdserver-web
     # each start, force stop the geneva
     bash /www/server/mdserver-web/geneva/stop.sh
 
