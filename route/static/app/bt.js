@@ -192,7 +192,19 @@ function getProgressHtml(migration_started) {
             </div>
         </div>
         <pre style="height: 222px;text-align: left;margin:5px 38px 0;font-size: 12px;line-height: 20px;padding: 10px;background-color: #333;color: #fff;"></pre>
+        <div class="mtb20" style="text-align: left;margin-left: 40px;">
+            <button class="btn btn-success" onclick="cancel()">取消</button>
+        </div>
     </div>`;
+}
+
+function cancel() {
+    let loadT = layer.msg("正在取消, 等待当前工作完成...", { icon: 16, time: 0, shade: 0.3 });
+    $.post('/bt/stop_migration', "", function(result) {
+        layer.close(loadT);
+        let progress = JSON.parse(result);
+        updateProgress(progress);
+    });
 }
 
 function migrate(remoteData) {
@@ -233,13 +245,17 @@ function progressInterval() {
             if (!progress.data.migration_started) {
                 clearInterval(progress_interval);
             }
-            $('.psync_migrate pre').text(progress.msg);
-            let width = progress.data.progress+'%';
-            $('.psync_migrate .progress_info_bar').width(width);
-            $('.psync_migrate .progress_info').text(width);
-            $('#migration_status').html(`${progress.data.migration_started ? "当前 --</span><img src='/static/img/ing.gif'>" : "结束"}`);
+            updateProgress(progress);
         })
     }, 5000);
+}
+
+function updateProgress(progress) {
+    $('.psync_migrate pre').text(progress.msg);
+    let width = progress.data.progress+'%';
+    $('.psync_migrate .progress_info_bar').width(width);
+    $('.psync_migrate .progress_info').text(width);
+    $('#migration_status').html(`${progress.data.migration_started ? "当前 --</span><img src='/static/img/ing.gif'>" : "结束"}`);
 }
 
 function selectProgress(val){
