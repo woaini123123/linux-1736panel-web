@@ -35,6 +35,31 @@
 <link href="/plugins/file?name={{menu['name']}}&v={{config.version}}&f={{menu['css_path']}}" rel="stylesheet" />
 {% endif %}
 {% endfor %}
+<style>
+    .ad-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .ad-column {
+        flex: 1;
+        margin: 0 1px;
+        background-color: lightgray;
+        text-align: center;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .ad-container .ad-column:first-child {
+        margin-left: 0;
+    }
+
+    .ad-container .ad-column:last-child {
+        margin-right: 0;
+    }
+</style>
 </head>
 
 <body>
@@ -98,7 +123,16 @@
             <script src="/static/js/jquery-qrcode-0.18.0.min.js?v={{config.version}}"></script>
             <script src="/static/js/xm-select.js"></script>
             <script src="/static/app/soft.js?v={{config.version}}" type="text/javascript" ></script>
-            
+            <div style="margin-left: 180px;">
+                <div>
+                    <div class="ad-container">
+                        <div class="ad-column">AD 1</div>
+                        <div class="ad-column">AD 2</div>
+                        <div class="ad-column">AD 3</div>
+                        <div class="ad-column">AD 4</div>
+                    </div>
+                </div>
+            </div>
             {% block content %}{% endblock %}
             <div class="footer bgw">1736建站面板-史上最强大的免费面板</span>
             </div>
