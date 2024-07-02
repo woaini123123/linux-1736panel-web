@@ -17,6 +17,13 @@ isStream=$(grep -o -i 'stream' /etc/redhat-release)
 
 cn=$(curl -fsSL -m 10 http://ipinfo.io/json | grep "\"country\": \"CN\"")
 
+if [ $VERSION_ID == 7 ];then
+    # https://serverfault.com/questions/1161816/mirrorlist-centos-org-no-longer-resolve
+    sed -i s/mirror.centos.org/vault.centos.org/g /etc/yum.repos.d/*.repo
+    sed -i s/^#.*baseurl=http/baseurl=http/g /etc/yum.repos.d/*.repo
+    sed -i s/^mirrorlist=http/#mirrorlist=http/g /etc/yum.repos.d/*.repo
+fi
+
 yum -y update
 # CentOS Stream
 if [ ! -z "$stream" ];then
