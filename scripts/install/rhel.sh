@@ -221,6 +221,14 @@ fi
 
 # install py39
 # upgrade to gcc 8
+if [ $VERSION_ID == 7 ];then
+    # https://serverfault.com/questions/1161816/mirrorlist-centos-org-no-longer-resolve
+    sed -i s/mirror.centos.org/vault.centos.org/g /etc/yum.repos.d/*.repo
+    sed -i s/^#.*baseurl=http/baseurl=http/g /etc/yum.repos.d/*.repo
+    sed -i s/^mirrorlist=http/#mirrorlist=http/g /etc/yum.repos.d/*.repo
+    yum clean all
+    yum makecache
+fi
 yum install -y centos-release-scl
 yum install -y scl-utils
 yum install -y devtoolset-8
