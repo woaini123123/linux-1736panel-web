@@ -57,6 +57,8 @@ if [ "$OSNAME" == "rhel" ];then
 		sed -i s/mirror.centos.org/vault.centos.org/g /etc/yum.repos.d/*.repo
 		sed -i s/^#.*baseurl=http/baseurl=http/g /etc/yum.repos.d/*.repo
 		sed -i s/^mirrorlist=http/#mirrorlist=http/g /etc/yum.repos.d/*.repo
+		yum clean all
+		yum makecache
 	fi
 	yum install -y wget curl zip unzip tar crontabs
 fi
