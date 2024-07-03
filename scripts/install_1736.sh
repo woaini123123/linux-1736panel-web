@@ -50,7 +50,7 @@ else
 fi
 
 # special patch for centos 7
-if [ "$OSNAME" == "rhel" ]
+if [ "$OSNAME" == "rhel" ];then
 	VERSION_ID=`grep -o -i 'release *[[:digit:]]\+\.*' /etc/redhat-release | grep -o '[[:digit:]]\+' `
 	if [ $VERSION_ID == 7 ];then
 		# https://serverfault.com/questions/1161816/mirrorlist-centos-org-no-longer-resolve
