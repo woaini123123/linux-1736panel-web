@@ -28,16 +28,12 @@ elif grep -Eqi "EulerOS" /etc/*-release || grep -Eqi "openEuler" /etc/*-release;
 	yum install -y wget curl zip unzip tar crontabs
 elif grep -Eqi "CentOS" /etc/issue || grep -Eqi "CentOS" /etc/*-release; then
 	OSNAME='rhel'
-	yum install -y wget curl zip unzip tar crontabs
 elif grep -Eqi "Fedora" /etc/issue || grep -Eqi "Fedora" /etc/*-release; then
 	OSNAME='rhel'
-	yum install -y wget curl zip unzip tar crontabs
 elif grep -Eqi "Rocky" /etc/issue || grep -Eqi "Rocky" /etc/*-release; then
 	OSNAME='rhel'
-	yum install -y wget curl zip unzip tar crontabs
 elif grep -Eqi "AlmaLinux" /etc/issue || grep -Eqi "AlmaLinux" /etc/*-release; then
 	OSNAME='rhel'
-	yum install -y wget curl zip unzip tar crontabs
 elif grep -Eqi "Amazon Linux" /etc/issue || grep -Eqi "Amazon Linux" /etc/*-release; then
 	OSNAME='amazon'
 	yum install -y wget curl zip unzip tar crontabs
@@ -51,6 +47,18 @@ elif grep -Eqi "Debian" /etc/issue || grep -Eqi "Debian" /etc/os-release; then
 	apt install -y wget curl zip unzip tar cron
 else
 	OSNAME='unknow'
+fi
+
+# special patch for centos 7
+if [ "$OSNAME" == "rhel" ]
+	VERSION_ID=`grep -o -i 'release *[[:digit:]]\+\.*' /etc/redhat-release | grep -o '[[:digit:]]\+' `
+	if [ $VERSION_ID == 7 ];then
+		# https://serverfault.com/questions/1161816/mirrorlist-centos-org-no-longer-resolve
+		sed -i s/mirror.centos.org/vault.centos.org/g /etc/yum.repos.d/*.repo
+		sed -i s/^#.*baseurl=http/baseurl=http/g /etc/yum.repos.d/*.repo
+		sed -i s/^mirrorlist=http/#mirrorlist=http/g /etc/yum.repos.d/*.repo
+	fi
+	yum install -y wget curl zip unzip tar crontabs
 fi
 
 if [ "$EUID" -ne 0 ] && [ "$OSNAME" != "macos" ];then 
