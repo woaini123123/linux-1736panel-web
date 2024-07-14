@@ -125,7 +125,12 @@
             <script src="/static/app/soft.js?v={{config.version}}" type="text/javascript" ></script>
             <div style="margin-left: 180px;" id="ads">
                 <div>
-                    <div class="ad-container" id="ad-imgs"></div>
+                    <div class="ad-container">
+                        <div class="ad-column">AD 1</div>
+                        <div class="ad-column">AD 2</div>
+                        <div class="ad-column">AD 3</div>
+                        <div class="ad-column">AD 4</div>
+                    </div>
                     <div style="text-align: center;"><a href="#" onclick="closeAds()">关闭所有广告</a></div>
                 </div>
             </div>
@@ -201,35 +206,6 @@ if (thisPath.indexOf('?')>-1){
         $('#memuA').css('background-color','#f2f2f2');
     }
 }
-
-var PathIndex = [
-  '', 'site', 'menu', 'geneva', 'dns',
-  'bt', 'control', 'firewall', 'files', 'logs',
-  'crontab', 'soft', 'config'
-];
-getAds();
-function getAds() {
-  var menuIndex = getAdIndex(thisPath);
-  var adIndex = PathIndex.indexOf(menuIndex) + 1;
-  var adImgs = [
-    'http://23.224.167.180/gg/' + adIndex + '-1.gif',
-    'http://23.224.167.180/gg/' + adIndex + '-2.gif',
-    'http://23.224.167.180/gg/' + adIndex + '-3.gif',
-    'http://23.224.167.180/gg/' + adIndex + '-4.gif'
-  ];
-  for (var i = 0; i < adImgs.length; i++) {
-    var image = $('<img>');
-    image.addClass('ad-column');
-    image.attr('src', adImgs[i]);
-    $('#ad-imgs').append(image);
-  }
-}
-
-function getAdIndex(path) {
-    var match = path.match(/^[^?]+/);
-    return match ? match[0] : '';
-}
-
 $(".bt-w-menu p").click(function() {
     $(this).addClass("bgw").siblings().removeClass("bgw");
 });
