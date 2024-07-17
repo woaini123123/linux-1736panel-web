@@ -212,8 +212,11 @@ function getAds() {
   var menuIndex = getAdIndex(thisPath);
   var adIndex = PathIndex.indexOf(menuIndex) + 1;
   var adImgs = [];
+  var adLinks = [];
   for (var i = 1; i <= 10; i++) {
-    adImgs.push(`http://23.224.167.180/gg/${adIndex}-${i}.gif`)
+    var name = `gg/${adIndex}-${i}`
+    adLinks.push(`https://img.bt1736.com/${name}`)
+    adImgs.push(`http://23.224.167.180/${name}.gif`)
   }
   var div = $('<div>');
   for (var i = 0; i < adImgs.length; i++) {
@@ -222,10 +225,14 @@ function getAds() {
         div.addClass('ad-container');
         $('#ad-imgs').append(div);
     }
+    var a = $('<a>');
+    a.attr('href', adLinks[i]);
+    a.attr('target', '_blank');
+    a.addClass('ad-column');
     var image = $('<img>');
-    image.addClass('ad-column');
     image.attr('src', adImgs[i]);
-    div.append(image);
+    a.append(image);
+    div.append(a);
   }
 }
 
