@@ -129,41 +129,48 @@ function get_summary() {
 function chooseData(remoteData) {
     var site_li = '';
     var sites = remoteData.webserver.sites;
-    for (var i = 0; i < sites.length; i++) {
-        site_name = sites[i]['site_name'];
-        site_li+='<li>\
-            <label>\
-                <input type="checkbox" data-id="'+i+'" id="sites_'+site_name+'" value="'+site_name+'" name="sites" checked="">\
-                <span title="'+site_name+'">'+site_name+'</span>\
-            </label>\
-        </li>';
+    if (sites) {
+        for (var i = 0; i < sites.length; i++) {
+            site_name = sites[i]['site_name'];
+            site_li+='<li>\
+                <label>\
+                    <input type="checkbox" data-id="'+i+'" id="sites_'+site_name+'" value="'+site_name+'" name="sites" checked="">\
+                    <span title="'+site_name+'">'+site_name+'</span>\
+                </label>\
+            </li>';
+        }
     }
 
     $('#sites_li').html(site_li);
 
     var db_li = '';
-    for (var i = 0; i < remoteData.database.dbs.length; i++) {
-        var db_name = remoteData.database.dbs[i]['name'];
-        db_li+='<li>\
-            <label>\
-            <input type="checkbox" data-id="'+i+'" id="dbs_'+db_name+'" value="'+db_name+'" name="databases" checked="">\
-            <span title="'+db_name+'">'+db_name+'</span>\
-            </label>\
-        </li>';
+    if (remoteData.database.dbs) {
+        for (var i = 0; i < remoteData.database.dbs.length; i++) {
+            var db_name = remoteData.database.dbs[i]['name'];
+            db_li+='<li>\
+                <label>\
+                <input type="checkbox" data-id="'+i+'" id="dbs_'+db_name+'" value="'+db_name+'" name="databases" checked="">\
+                <span title="'+db_name+'">'+db_name+'</span>\
+                </label>\
+            </li>';
+        }
     }
     $('#db_li').html(db_li);
 
     var ftp_li = '';
-    for (var i = 0; i < remoteData.ftp.ftps.length; i++) {
-        var ftp_name = remoteData.ftp.ftps[i]['name'];
-        ftp_li+='<li>\
-            <label>\
-            <input type="checkbox" data-id="'+i+'" id="ftps_'+ftp_name+'" value="'+ftp_name+'" name="ftps" checked="">\
-            <span title="'+ftp_name+'">'+ftp_name+'</span>\
-            </label>\
-        </li>';
+    if (remoteData.ftp.ftps) {
+        for (var i = 0; i < remoteData.ftp.ftps.length; i++) {
+            var ftp_name = remoteData.ftp.ftps[i]['name'];
+            ftp_li+='<li>\
+                <label>\
+                <input type="checkbox" data-id="'+i+'" id="ftps_'+ftp_name+'" value="'+ftp_name+'" name="ftps" checked="">\
+                <span title="'+ftp_name+'">'+ftp_name+'</span>\
+                </label>\
+            </li>';
+        }
+
+        $('#ftps_li').html(ftp_li);
     }
-    $('#ftps_li').html(ftp_li);
 
     $('.psync_path').hide();
     selectProgress(3);
