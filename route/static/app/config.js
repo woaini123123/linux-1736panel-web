@@ -284,6 +284,53 @@ function setPassword(a) {
 	});
 }
 
+function setXToken() {
+    var xtoken = $("#xtoken").val();
+    layer.open({
+        type: 1,
+        area: "500px",
+        title: "修改x-token",
+        closeBtn: 1,
+        shift: 5,
+        btn:['提交','关闭'],
+        shadeClose: false,
+        content: '<div class="bt-form bt-form pd20">\
+                    <div class="line ">\
+                        <span class="tname">x-token</span>\
+                        <div class="info-r">\
+                            <input name="xtoken_set" class="bt-input-text mr5" type="text" style="width: 311px" value="' + xtoken + '">\
+                        </div>\
+                    </div>\
+                </div>',
+        yes:function(index){
+        	var xtoken = $("input[name='xtoken_set']").val();
+		    if (xtoken == ''){
+		    	layer.confirm('警告，xtoken为空, 您真的要这样更改吗？',{title:'xtoken修改',closeBtn:1,icon:13,
+		    	cancel:function(){
+				}}, function() {
+					var loadT = layer.msg(lan.config.config_save, { icon: 16, time: 0, shade: [0.3, '#000'] });
+				    $.post('/config/set_xtoken', { xtoken: xtoken }, function (rdata) {
+				    	showMsg(rdata.msg, function(){
+				    		layer.close(index);
+				    		layer.close(loadT);
+				    		$("#xtoken").val(xtoken);
+				    	},{ icon: rdata.status ? 1 : 2 }, 2000);
+					},'json');
+				});
+		    	return;
+		    } else {
+		    	var loadT = layer.msg(lan.config.config_save, { icon: 16, time: 0, shade: [0.3, '#000'] });
+			    $.post('/config/set_xtoken', { xtoken: xtoken }, function (rdata) {
+			    	showMsg(rdata.msg, function(){
+			    		layer.close(index);
+			    		layer.close(loadT);
+			    		$("#xtoken").val(xtoken);
+			    	},{ icon: rdata.status ? 1 : 2 }, 2000);
+			    },'json');
+		    }
+        }
+    });
+}
 
 function randPwd(){
 	var pwd = randomStrPwd(12);

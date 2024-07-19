@@ -96,6 +96,12 @@ function getSuccessRateDiv(rate, domain_speed_id) {
 					ssl = "<span style='color: red'>已经过期</span>"
 				}
 			}
+	
+			let tj_button = "<a href='javascript:;' class='btlink' onclick=\"add_tj('" + data.data[i].name + "')\">添加统计</a>";
+			//是否已经添加统计代码
+			if(data.data[i].is_add_tj){
+				tj_button = "<a href='javascript:;' class='btlink' onclick=\"getTjCode('" + data.data[i].name + "')\">获取代码</a>";
+			}
 			//表格主体
 			var shortwebname = data.data[i].name;
 			var shortpath = data.data[i].path;
@@ -114,10 +120,16 @@ function getSuccessRateDiv(rate, domain_speed_id) {
 					<td><a class='btlink' title='打开目录"+data.data[i].path+"' href=\"javascript:openPath('"+data.data[i].path+"');\">" + shortpath + "</a></td>\
 					<td width='100'>" + success_rate + "</td>\
 					<td><a class='btlink webtips' href='javascript:;' onclick=\"webEdit(" + data.data[i].id + ",'" + data.data[i].name + "','" + data.data[i].edate + "','" + data.data[i].addtime + "','ssl')\">" + ssl + "</a></td>\
+					<td>" + data.data[i].today_ip + "</td>\
+					<td>" + data.data[i].today_pv + "</td>\
+					<td>" + data.data[i].today_uv + "</td>\
+					<td>" + data.data[i].today_new + "</td>\
+					<td>" + data.data[i].today_time + "</td>\
 					<td><a class='btlinkbed' href='javascript:;' data-id='"+data.data[i].id+"'>" + data.data[i].ps + "</a></td>\
 					<td style='text-align:right; color:#bbb'>\
 					<a href='javascript:;' class='btlink' onclick=\"webEdit(" + data.data[i].id + ",'" + data.data[i].name + "','" + data.data[i].edate + "','" + data.data[i].addtime + "')\">设置</a>\
-                        | <a href='javascript:;' class='btlink' onclick=\"webDelete('" + data.data[i].id + "','" + data.data[i].name + "')\" title='删除站点'>删除</a>\
+                    | "+ tj_button +" | \
+                    <a href='javascript:;' class='btlink' onclick=\"webDelete('" + data.data[i].id + "','" + data.data[i].name + "')\" title='删除站点'>删除</a>\
 					</td></tr>"
 			
 			$("#webBody").append(body);
@@ -188,6 +200,47 @@ function getSuccessRateDiv(rate, domain_speed_id) {
 	},'json');
 }
 
+//添加统计
+function add_tj(name){
+	var loadT = layer.msg('正在处理,请稍候...',{icon:16,time:0,shade: [0.3, '#000']});
+	var data='domain='+name;
+	$.post('/site/add_tj',data,function(rdata){
+		showMsg(rdata.msg, function(){
+			layer.closeAll();
+		},{icon:rdata.status?1:2,time:2000});
+	},'json');
+}
+
+//获取统计统计
+function getTjCode(name){
+	var loadT = layer.msg('正在获取...',{icon:16,time:0,shade: [0.3, '#000']});
+	var data='domain='+name;
+	$.post('/site/get_tj_code',data,function(rdata){
+		layer.close(loadT);
+		jscode = rdata.status?rdata.data.jscode:'';
+		if (jscode){
+			jscode = jscode.replace(/=token(;|$)/,"=\""+rdata.data.token+"\" ")
+		}
+		layer.open({
+			type: 1,
+			area: "800px",
+			title: "统计代码",
+			closeBtn: 1,
+			shift: 5,
+			btn:['关闭'],
+			shadeClose: false,
+			content: '<div class="bt-form bt-form pd20">\
+						<div class="line ">\
+							<span class="tname">jscode</span>\
+							<div class="info-r">\
+								<textarea name="jscode_set" class="bt-input-text mr5" type="text" style="width: 500px">'+jscode+'</textarea>\
+							</div>\
+						</div>\
+					</div>'
+		});
+
+	},'json');
+}
 
 function getBakPost(b) {
 	$(".baktext").hide().prev().show();
