@@ -475,10 +475,10 @@ html {
 .btswitch+.btswitch-btn {
     outline: 0;
     display: block;
-    width: 3em;
-    height: 1.8em;
+    width: 40px;
+    height: 20px;
     position: relative;
-    cursor: pointer
+    /* cursor: pointer */
 }
 
 .btswitch+.btswitch-btn:after,
@@ -506,16 +506,16 @@ html {
     background: #cdcdcd;
     border-radius: .9em;
     padding: 2px;
-    -webkit-transition: all .4s ease;
-    transition: all .4s ease;
+    /* -webkit-transition: all .4s ease; */
+    /* transition: all .4s ease; */
     border: 1px solid #e8eae9
 }
 
 .btswitch-ios+.btswitch-btn:after {
     border-radius: .9em;
     background: #fbfbfb;
-    -webkit-transition: left .3s cubic-bezier(.175, .885, .32, 1.275), padding .3s ease, margin .3s ease;
-    transition: left .3s cubic-bezier(.175, .885, .32, 1.275), padding .3s ease, margin .3s ease;
+    /* -webkit-transition: left .3s cubic-bezier(.175, .885, .32, 1.275), padding .3s ease, margin .3s ease; */
+    /* transition: left .3s cubic-bezier(.175, .885, .32, 1.275), padding .3s ease, margin .3s ease; */
     -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, .1), 0 4px 0 rgba(0, 0, 0, .08);
     box-shadow: 0 0 0 1px rgba(0, 0, 0, .1), 0 4px 0 rgba(0, 0, 0, .08)
 }
@@ -1053,7 +1053,7 @@ html .menu .menu_exit:hover {
 }
 .divtable .table {
     border: 1px solid #ddd;
-    color: #666;
+    color: #222;
     font-size: 12px;
     margin-bottom: 0;
 }
@@ -1069,9 +1069,9 @@ html .menu .menu_exit:hover {
 
 .divtable .table thead th {
     vertical-align: inherit;
-    background-color: #f6f6f6;
+    background-color: #e2e4e8;
     border-bottom: 1px solid #e6e6e6;
-    color: #666;
+    color: #222;
     font-weight: normal;
     padding: 8px;
 }
@@ -5099,6 +5099,19 @@ select[disabled]{
 
 .progress {
     margin-bottom: unset;
+    height: 15px;
+    border-radius: 8px;
+    background-color: lightgrey;
+}
+
+.progress-rate {
+    position: relative;
+    height: 15px;
+    border-radius: 8px;
+}
+
+.progress-link {
+    color: #1a66ff;
 }
 
 .bg-success {
@@ -5110,9 +5123,9 @@ select[disabled]{
 }
 
 .bg-warning {
-    background-color: #f69833 !important;
+    background-color: #f69833  !important;
 }
 
 .bg-danger {
-    background-color: #FF4842 !important;
+    background-color: #ff3300  !important;
 }

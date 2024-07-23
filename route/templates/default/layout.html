@@ -38,26 +38,32 @@
 <style>
     .ad-container {
         display: flex;
-        justify-content: space-between;
+        flex-wrap: wrap;
         width: 100%;
+        margin: 2px -2px;
         box-sizing: border-box;
         margin-bottom: 2px;
     }
 
     .ad-column {
-        flex: 1;
-        margin: 0 1px;
+        width: calc(20% - 4px);
+        margin: 0 2px;
+        padding: 1px;
         background-color: lightgray;
         text-align: center;
         box-sizing: border-box;
     }
-
-    .ad-container .ad-column:first-child {
-        margin-left: 0;
+    .ad-column > img {
+        width: 100%;
+        height: 100%;
     }
-
-    .ad-container .ad-column:last-child {
-        margin-right: 0;
+    .ssh-item-layout {
+        margin-left: 6px;
+        display: inline-block;
+		vertical-align: middle;
+    }
+    .ssh-item-layout label {
+        margin-bottom: 2px;
     }
 </style>
 </head>
@@ -74,7 +80,13 @@
                         <li id="memuAsite"><a class="menu_web" href="/site">网站</a></li>
                         <li id="memuAplugins_pureftp"><a class="menu_ftp" href="/plugins/menu?tag=pureftp">FTP</a></li>
                         <li id="memuAplugins_mysql"><a class="menu_data" href="/plugins/menu?tag=mysql">MYSQL</a></li>
-                        <li id="memuAgeneva"><a class="menu_firewall" href="/geneva">移动墙</a></li>
+                        <li id="memuAgeneva">
+                            <a class="menu_firewall" href="/geneva">移动墙
+                                <div class='ssh-item-layout' id="firewall_status">
+                                    <input class='btswitch btswitch-ios' id='firewall_status' type='checkbox' disabled><label class='btswitch-btn sshswitch' for='firewall_status' ></label>
+                                </div>
+                            </a>
+                        </li>
                         <li id="memuAdns"><a class="menu_web" href="/dns">DNS</a></li>
                         <li id="memuAbt"><a class="menu_set" href="/bt">导入宝塔</a></li>
                         <li id="memuAcontrol"><a class="menu_control" href="/control">监控</a></li>
@@ -137,6 +149,22 @@
 </body>
 
 <script type="text/javascript">
+
+setInterval(function(){
+	getStatus();
+}, 1000);
+
+function getStatus() {
+	$.post('/geneva/get_status', function(data){
+        var fStatus = '';
+		if (data.status){
+			fStatus = "<input class='btswitch btswitch-ios' id='firewall_status' type='checkbox' checked disabled><label class='btswitch-btn' for='firewall_status'></label>";
+		}else{
+			fStatus = "<input class='btswitch btswitch-ios' id='firewall_status' type='checkbox' disabled><label class='btswitch-btn' for='firewall_status'></label>";
+		}
+		$("#firewall_status").html(fStatus);
+	},'json');
+}
 
 // 1736 statistic
 var url_1736="https://uv60.cn";var token="c2e7831dd2d1e173cd03c12c6621d3c3f876f1de4374a2da453f4d8738d43640e13daa5e15206b93fe01e0ad965cbca36f539863b4c4225cc48ad2d7526dde2f";var cltj = document.createElement("script");cltj.src = url_1736 + "/tj/tongji.js?v=2.08";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(cltj,s);

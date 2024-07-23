@@ -32,23 +32,24 @@
 
 					<div class="divtable mtb10">
 						<div class="tablescroll">
-						<table class="table table-hover" style="min-width: 900px;border: 0 none;">
+						<table class="table table-hover" id="site-table" style="min-width: 900px;border: 0 none;">
 							<thead>
 								<tr>
 									<th width="30"><input type="checkbox" onclick="checkSelect();" id="setBox"></th>
-									<th width="150" onclick="listOrder('name','site',this)" style="cursor: pointer;">域名<span class="glyphicon glyphicon-triangle-top" style="margin-left:5px;color:#bbb"></span></th>
-									<th onclick="listOrder('status','site',this)" style="cursor: pointer;" width="98">网站状态<span class="glyphicon glyphicon-triangle-top" style="margin-left:5px;color:#bbb"></span></th>
-									<th width="58">备份</th>
+									<th width="8%" onclick="listOrder('name','site',this)" style="cursor: pointer;">域名<span class="glyphicon glyphicon-triangle-top" style="margin-left:5px;color:#bbb"></span></th>
+									<th width="7%" onclick="listOrder('status','site',this)" style="cursor: pointer;" width="98">网站状态<span class="glyphicon glyphicon-triangle-top" style="margin-left:5px;color:#bbb"></span></th>
+									<th width="5%">备份</th>
 									<th width="26%">网站目录</th>
-									<th width="58">连通率</th>
-									<th width="100">SSL证书</th>
+									<th width="14%">连通率</th>
+									<th width="7%"></th>
 									<th width="30">ip</th>
 									<th width="30">pv</th>
 									<th width="30">uv</th>
-									<th width="30">新访客</th>
-									<th width="58">平均访问时长</th>
+									<th width="6%">新访客</th>
+									<th width="9%">平均访问时长</th>
 									<th>备注</th>
-									<th width='25%' class='text-right'>操作</th>
+									<th width="6%">SSL证书</th>
+									<th width='14%' class='text-right'>操作</th>
 								</tr>
 							</thead>
 							<tbody id="webBody"></tbody>

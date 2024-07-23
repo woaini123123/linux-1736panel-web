@@ -8,7 +8,7 @@ function updateBtnStatus(status) {
     }
 }
 
-function getStatus() {
+function getInternalStatus() {
 	$.post('/geneva/get_status', function(data){
         updateBtnStatus(data.status);
 	},'json');

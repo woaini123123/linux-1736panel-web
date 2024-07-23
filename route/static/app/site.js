@@ -10,19 +10,30 @@ $('#site_search').click(function(){
 	getWeb(1, -1, $('#site_search_input').val());
 });
 
-function getSuccessRate(rate_class, rate, width = undefined) {
+function getSuccessRate(rate_class, rate, width = undefined, adjustify = false) {
 	if (!width) {
 		width = rate;
 	}
-	let progress = `<div class='progress-bar ${rate_class}' role='progressbar' style='width: ${width}%' aria-valuenow='${rate}' aria-valuemin='0' aria-valuemax='100'></div>`
-	return `<div class='progress' style='position: relative;'><span style='position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 20px; line-height: 20px; color: black;'>${rate}%</span>${progress}</div>`;
+	text = `<span style='position: absolute; height: 15px; color: #fff;margin: 0 5px;bottom: 2px;'>${rate}%</span>`;
+	if (rate == 0) {
+		width = 100;
+		text = `<span style='position: absolute; height: 15px; color: #fff;margin: 0 5px;bottom: 2px;left:0'>${rate}%</span>`;
+	}
+	else {
+		if (rate && adjustify && $('#site-table').width() * 0.14 * rate / 100 > 26) {
+			text = `<span style='position: absolute; height: 15px; color: #fff;margin: 0 5px;bottom: 2px;right:0;'>${rate}%</span>`;
+		}
+	}
+	let progress = `<div class='progress-bar progress-rate ${rate_class}' role='progressbar' style='width: ${width}%' aria-valuenow='${rate}' aria-valuemin='0' aria-valuemax='100'>${text}</div>`
+	return `<div class='progress'>${progress}</div>`;
 }
 
 function getSuccessRateDiv(rate, domain_speed_id) {
-	let success_rate = getSuccessRate('bg-danger', 0, 100);
+	let success_rate = getSuccessRate('bg-danger', 0, 100, true);
+	rate_class = 'bg-danger';
 	if (rate !== undefined) {
 		if (rate == -1) {
-			success_rate = "测速失败";
+			// success_rate = "测速失败";
 		} else {
 			rate_class = 'bg-success';
 			if (rate >=0 && rate <= 60) {
@@ -32,9 +43,10 @@ function getSuccessRateDiv(rate, domain_speed_id) {
 			} else if (rate > 80 && rate <= 99) {
 				rate_class = 'bg-good'
 			}
-			success_rate = "<a href='javascript:;' class='btlink' onclick=\"speedDetail(1, " + domain_speed_id + ", undefined, undefined, '"+rate_class+"', "+rate+")\">"+getSuccessRate(rate_class, rate)+"</a>";
 		}
+		success_rate = getSuccessRate(rate_class, rate, undefined, true);
 	}
+	success_rate += "<a href='javascript:;' class='progress-link' onclick=\"speedDetail(1, " + domain_speed_id + ", undefined, undefined, '"+rate_class+"', "+rate+")\">查看测速明细</a>";
 	return success_rate;
 }
 
@@ -73,6 +85,8 @@ function getSuccessRateDiv(rate, domain_speed_id) {
 		var body = '';
 		$("#webBody").html(body);
 		for (var i = 0; i < data.data.length; i++) {
+			console.info(data.data[i])
+			console.info(data.data[i].summary)
 			//当前站点状态
 			if (data.data[i].status == '正在运行' || data.data[i].status == '1') {
 				var status = "<a href='javascript:;' title='停用这个站点' onclick=\"webStop(" + data.data[i].id + ",'" + data.data[i].name + "')\" class='btn-defsult'><span style='color:rgb(92, 184, 92)'>运行中</span><span style='color:rgb(92, 184, 92)' class='glyphicon glyphicon-play'></span></a>";
@@ -100,7 +114,7 @@ function getSuccessRateDiv(rate, domain_speed_id) {
 			let tj_button = "<a href='javascript:;' class='btlink' onclick=\"add_tj('" + data.data[i].name + "')\">添加统计</a>";
 			//是否已经添加统计代码
 			if(data.data[i].is_add_tj){
-				tj_button = "<a href='javascript:;' class='btlink' onclick=\"getTjCode('" + data.data[i].name + "')\">获取代码</a>";
+				tj_button = "<a href='javascript:;' class='btlink' alt='1736网站统计代码' onclick=\"getTjCode('" + data.data[i].name + "')\">统计代码</a>";
 			}
 			//表格主体
 			var shortwebname = data.data[i].name;
@@ -118,14 +132,15 @@ function getSuccessRateDiv(rate, domain_speed_id) {
 					<td>" + status + "</td>\
 					<td>" + backup + "</td>\
 					<td><a class='btlink' title='打开目录"+data.data[i].path+"' href=\"javascript:openPath('"+data.data[i].path+"');\">" + shortpath + "</a></td>\
-					<td width='100'>" + success_rate + "</td>\
-					<td><a class='btlink webtips' href='javascript:;' onclick=\"webEdit(" + data.data[i].id + ",'" + data.data[i].name + "','" + data.data[i].edate + "','" + data.data[i].addtime + "','ssl')\">" + ssl + "</a></td>\
-					<td>" + data.data[i].today_ip + "</td>\
-					<td>" + data.data[i].today_pv + "</td>\
-					<td>" + data.data[i].today_uv + "</td>\
-					<td>" + data.data[i].today_new + "</td>\
-					<td>" + data.data[i].today_time + "</td>\
+					<td width='100' style='text-align: center;'>" + success_rate + "</td>\
+					<td style='text-align:center'><div class='cell'><span data-v-ddd5e25a='' style='color: #aaa; font-size: 12px;'>今日</span><br data-v-ddd5e25a=''><span data-v-ddd5e25a='' style='color: #aaa; font-size: 12px;'>昨日</span></div></td>\
+					<td><div class='cell'><div data-v-ddd5e25a='' class='num'><div data-v-ddd5e25a=''>"+data.data[i].summary.today_ip+"</div><div data-v-ddd5e25a=''>"+data.data[i].summary.yesterday_ip+"</div></div></div></td>\
+					<td><div class='cell'><div data-v-ddd5e25a='' class='num'><div data-v-ddd5e25a=''>"+data.data[i].summary.today_pv+"</div><div data-v-ddd5e25a=''>"+data.data[i].summary.yesterday_pv+"</div></div></div></td>\
+				  <td><div class='cell'><div data-v-ddd5e25a='' class='num'><div data-v-ddd5e25a=''>"+data.data[i].summary.today_uv+"</div><div data-v-ddd5e25a=''>"+data.data[i].summary.yesterday_uv+"</div></div></div></td>\
+					<td><div class='cell'><div data-v-ddd5e25a='' class='num'><div data-v-ddd5e25a=''>"+data.data[i].summary.today_new+"</div><div data-v-ddd5e25a=''>"+data.data[i].summary.yesterday_new+"</div></div></div></td>\
+					<td><div class='cell'><div data-v-ddd5e25a='' class='num'><div data-v-ddd5e25a=''>"+data.data[i].summary.today_time+"</div><div data-v-ddd5e25a=''>"+data.data[i].summary.yesterday_time+"</div></div></div></td>\
 					<td><a class='btlinkbed' href='javascript:;' data-id='"+data.data[i].id+"'>" + data.data[i].ps + "</a></td>\
+					<td><a class='btlink webtips' href='javascript:;' onclick=\"webEdit(" + data.data[i].id + ",'" + data.data[i].name + "','" + data.data[i].edate + "','" + data.data[i].addtime + "','ssl')\">" + ssl + "</a></td>\
 					<td style='text-align:right; color:#bbb'>\
 					<a href='javascript:;' class='btlink' onclick=\"webEdit(" + data.data[i].id + ",'" + data.data[i].name + "','" + data.data[i].edate + "','" + data.data[i].addtime + "')\">设置</a>\
                     | "+ tj_button +" | \
@@ -206,8 +221,9 @@ function add_tj(name){
 	var data='domain='+name;
 	$.post('/site/add_tj',data,function(rdata){
 		showMsg(rdata.msg, function(){
-			layer.closeAll();
+			layer.closeAll();			
 		},{icon:rdata.status?1:2,time:2000});
+		getWeb(1);
 	},'json');
 }
 
@@ -223,17 +239,16 @@ function getTjCode(name){
 		}
 		layer.open({
 			type: 1,
-			area: "800px",
+			area: "730px",
 			title: "统计代码",
 			closeBtn: 1,
 			shift: 5,
 			btn:['关闭'],
 			shadeClose: false,
 			content: '<div class="bt-form bt-form pd20">\
-						<div class="line ">\
-							<span class="tname">jscode</span>\
-							<div class="info-r">\
-								<textarea name="jscode_set" class="bt-input-text mr5" type="text" style="width: 500px">'+jscode+'</textarea>\
+						<div class="line">\
+							<div>\
+								<textarea rows="6" readonly="readonly" class="bt-input-text mr5" type="text" style="width: 680px; height: 166px;">'+jscode+'</textarea>\
 							</div>\
 						</div>\
 					</div>'
@@ -736,7 +751,7 @@ function domainEdit(id, name, msg, status) {
 			btn = getDNSBtn(is_exist, domain_name);
 			echoHtml += "<tr>\
 				<td><a title='"+lan.site.click_access+"' target='_blank' href='http://" + domain_name + ":" + domain[i].port + "' class='btlinkbed'>" + domain_name + "</a></td>\
-				<td width='100'>" + success_rate + "</td>\
+				<td width='100' style='text-align: center;'>" + success_rate + "</td>\
 				<td id='"+domain_name+"'>"+btn+"</td>\
 				<td><a class='btlinkbed'>" + domain[i].port + "</a></td>\
 				<td class='text-center'><a class='table-btn-del' href='javascript:;' onclick=\"delDomain(" + id + ",'" + name + "','" + domain[i].name + "','" + domain[i].port + "',1)\"><span class='glyphicon glyphicon-trash'></span></a></td>\
