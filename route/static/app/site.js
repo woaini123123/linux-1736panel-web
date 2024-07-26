@@ -1190,73 +1190,75 @@ function speedDetail(page, id, s_ip, s_name, rate_class, rate) {
 		result = JSON.parse(result);
 		var data = result["data"];
 		var ips = "";
-		isAll = true;
-		data.ips.forEach(function(ip) {
-			if (ip == s_ip) {
-				ips += `<span class='Pcurrent'>${ip}</span>`;
-				if (s_name) {
-					ips = `<a class="Pnum" onclick='speedDetail(1, "${id}", undefined, "${s_name}", "${rate_class}", ${rate})'>全部</a>` + ips;
-				} else {
-					ips = `<a class="Pnum" onclick='speedDetail(1, "${id}", undefined, ${s_name})', "${rate_class}", ${rate}>全部</a>` + ips;
-				}
-				isAll = false
-			} else {
-				if (s_name) {
-					ips += `<a class="Pnum" onclick='speedDetail(1, "${id}", "${ip}", "${s_name}", "${rate_class}", ${rate})'>${ip}</a>`
-				} else {
-					ips += `<a class="Pnum" onclick='speedDetail(1, "${id}", "${ip}", ${s_name})', "${rate_class}", ${rate}>${ip}</a>`
-				}
-			}
-		});
-		if (isAll) {
-			ips = "<span class='Pcurrent'>全部</span>" + ips; 
-		}
-
 		var names = "";
-		isAll = true;
-		data.names.forEach(function(name) {
-			if (name == s_name) {
-				names += `<span class='Pcurrent'>${name}</span>`;
-				if (s_ip) {
-					names = `<a class="Pnum" onclick='speedDetail(1, "${id}", "${s_ip}", undefined, "${rate_class}", ${rate})'>全部</a>` + names;
-				} else {
-					names = `<a class="Pnum" onclick='speedDetail(1, "${id}", ${s_ip}, undefined, "${rate_class}", ${rate})'>全部</a>` + names;
-				}
-				isAll = false
-			} else {
-				if (s_ip) {
-					names += `<a class="Pnum" onclick='speedDetail(1, "${id}", "${s_ip}", "${name}", "${rate_class}", ${rate})'>${name}</a>`;
-				} else {
-					names += `<a class="Pnum" onclick='speedDetail(1, "${id}", ${s_ip}, "${name}", "${rate_class}", ${rate})'>${name}</a>`;
-				}
-			}
-		});
-		if (isAll) {
-			names = "<span class='Pcurrent'>全部</span>" + names; 
-		}
-
 		var body = "";
-		data.speed_details.forEach(function(speed_detail) {
-			let time = speed_detail.speed_time;
-			speed_class = 'bg-success';
-			if (time >=10) {
-				speed_class = 'bg-danger'
-			} else if (time >= 3 && time < 10) {
-				speed_class = 'bg-warning'
-			} else if (time >= 1 && time < 3) {
-				speed_class = 'bg-good'
+		isAll = true;
+		if (data) {
+			data.ips.forEach(function(ip) {
+				if (ip == s_ip) {
+					ips += `<span class='Pcurrent'>${ip}</span>`;
+					if (s_name) {
+						ips = `<a class="Pnum" onclick='speedDetail(1, "${id}", undefined, "${s_name}", "${rate_class}", ${rate})'>全部</a>` + ips;
+					} else {
+						ips = `<a class="Pnum" onclick='speedDetail(1, "${id}", undefined, ${s_name})', "${rate_class}", ${rate}>全部</a>` + ips;
+					}
+					isAll = false
+				} else {
+					if (s_name) {
+						ips += `<a class="Pnum" onclick='speedDetail(1, "${id}", "${ip}", "${s_name}", "${rate_class}", ${rate})'>${ip}</a>`
+					} else {
+						ips += `<a class="Pnum" onclick='speedDetail(1, "${id}", "${ip}", ${s_name})', "${rate_class}", ${rate}>${ip}</a>`
+					}
+				}
+			});
+			if (isAll) {
+				ips = "<span class='Pcurrent'>全部</span>" + ips; 
 			}
-			body += `
-				<tr>
-					<td>${speed_detail.id}</td>
-					<td>${speed_detail.name}</td>
-					<td>${speed_detail.code}</td>
-					<td><span style="padding: 5px; color: white;" class="${speed_class}">${speed_detail.speed_time}</span></td>
-					<td>${speed_detail.ip}</td>
-				</tr>
-			`;
-		});
-
+	
+			isAll = true;
+			data.names.forEach(function(name) {
+				if (name == s_name) {
+					names += `<span class='Pcurrent'>${name}</span>`;
+					if (s_ip) {
+						names = `<a class="Pnum" onclick='speedDetail(1, "${id}", "${s_ip}", undefined, "${rate_class}", ${rate})'>全部</a>` + names;
+					} else {
+						names = `<a class="Pnum" onclick='speedDetail(1, "${id}", ${s_ip}, undefined, "${rate_class}", ${rate})'>全部</a>` + names;
+					}
+					isAll = false
+				} else {
+					if (s_ip) {
+						names += `<a class="Pnum" onclick='speedDetail(1, "${id}", "${s_ip}", "${name}", "${rate_class}", ${rate})'>${name}</a>`;
+					} else {
+						names += `<a class="Pnum" onclick='speedDetail(1, "${id}", ${s_ip}, "${name}", "${rate_class}", ${rate})'>${name}</a>`;
+					}
+				}
+			});
+			if (isAll) {
+				names = "<span class='Pcurrent'>全部</span>" + names; 
+			}
+	
+			data.speed_details.forEach(function(speed_detail) {
+				let time = speed_detail.speed_time;
+				speed_class = 'bg-success';
+				if (time >=10) {
+					speed_class = 'bg-danger'
+				} else if (time >= 3 && time < 10) {
+					speed_class = 'bg-warning'
+				} else if (time >= 1 && time < 3) {
+					speed_class = 'bg-good'
+				}
+				body += `
+					<tr>
+						<td>${speed_detail.id}</td>
+						<td>${speed_detail.name}</td>
+						<td>${speed_detail.code}</td>
+						<td><span style="padding: 5px; color: white;" class="${speed_class}">${speed_detail.speed_time}</span></td>
+						<td>${speed_detail.ip}</td>
+					</tr>
+				`;
+			});
+		}
+		
 		if (speedDetailLayer) {
 			layer.close(speedDetailLayer);
 		}
@@ -1271,20 +1273,20 @@ function speedDetail(page, id, s_ip, s_name, rate_class, rate) {
 			shadeClose: false,
 			content: `
 				<div class="safe bgw mtb15 pd15">
-					<div style="margin: 0 15px;">测速网址: ${data.address}</div>
-					<div style="margin: 0 15px;">测速时间: ${data.addtime}</div>
-					<div style="margin: 0 15px;">${getSuccessRate(rate_class, rate)}</div>
+					<div style="margin: 0 15px;">测速网址: ${data ? data.address : ''}</div>
+					<div style="margin: 0 15px;">测速时间: ${data ? data.addtime :''}</div>
+					<div style="margin: 0 15px;">${getSuccessRate(rate_class, rate ? rate : 0)}</div>
 					<div class='bt-form ptb15 mlr15' style="display:flex; flex-flow: column;">
-						<div class='page' style="display: flex; height: unset;">
+						${ips ? `<div class='page' style="display: flex; height: unset;">
 							<div style='float: left;'>
 							${ips}
 							</div>
-						</div>
-						<div class='page' style="display: flex; height: unset;">
+						</div>`: ''}
+						${names ? `<div class='page' style="display: flex; height: unset;">
 							<div style='float: left;'>
 							${names}
 							</div>
-						</div>
+						</div>`: ''}
 						<div class='divtable mtb15' style='margin-bottom:0'>
 							<table class="table table-hover" width="100%">
 								<thead>
@@ -1296,9 +1298,9 @@ function speedDetail(page, id, s_ip, s_name, rate_class, rate) {
 										<th width="26%">解析IP</th>
 									</tr>
 								</thead>
-								<tbody id="webBody">${body}</tbody>
+								<tbody id="webBody">${body ? body : ''}</tbody>
 							</table>
-							<div class="page">${data.page}</div>
+							${data ? `<div class="page">${data}</div>` : ''}
 						</div>
 					</div>
 				</div>

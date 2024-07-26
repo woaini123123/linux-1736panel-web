@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="main-content pb55">
+    <div class="container-fluid">
+        <div class="pos-box bgw mtb15">
+            <div class="position f14 c9 pull-left">
+                <a class="plr10 c4" href="/">首页</a>/<span class="plr10 c4">1736统计管理</span>
+            </div>
+        </div>
+        <div class="safe bgw mtb15 pd15">
+            <div class="info-title-tips">
+                <p>{绑定} 针对的是已使用1736统计的站长用户，拉取统计账户下所有域名统计数据在面板上，需要绑定Token，Token在1736统计个人后台中查看，迁移面板可以再次绑定！</p>
+            </div>
+            <div class="setting-con">
+				<form id="stat_config">
+					<p class="mtb15">
+						<span class="set-tit text-right">tj1736 xtoken</span>
+						<input class="inputtxt bt-input-text disable" type="text" value="****" disabled />
+						<button type="button" class="btn btn-success btn-sm ml5" onclick="setXtokenCode()">绑定</button>
+                        <button type="button" class="btn btn-success btn-sm ml5" onclick="stat_create()">创建</button>
+						<span class="set-info c7 red">{创建} 是针对第一次使用面板而没有使用过1736统计的站长。</span>
+					</p>
+				</form>
+			</div>
+            <div class="divtable mtb10">
+                <div class="tablescroll">
+                    <table id="stattable" class="table table-hover" style="min-width: 900px;border: 0 none;">
+                        <thead>
+                            <tr>
+                                <th width="150">URL</th>
+                                <th width="58">用户名</th>
+                                <th width="58">密码</th>
+                                <th width="26%">Token</th>
+                            </tr>
+                        </thead>
+                        <tbody id="webBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/static/app/stat.js?v={{config.version}}"></script>
+<script type="text/javascript">		
+setTimeout(function(){
+	stat_getToken();
+},500);
+</script>
+{% endblock %}
