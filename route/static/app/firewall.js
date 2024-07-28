@@ -104,18 +104,18 @@ function getSshInfo(){
 		$("#mstscPort").val(rdata.port);
 		var isPint = '';
 		if(rdata.ping){
-			isPing = "<input class='btswitch btswitch-ios' id='noping' type='checkbox'><label class='btswitch-btn' for='noping' onclick='ping(1)'></label>";
+			isPing = "<input class='btswitch btswitch-ios' id='noping' type='checkbox' /><label class='btswitch-btn' for='noping' onclick='ping(1)'></label>";
 		}else{
-			isPing = "<input class='btswitch btswitch-ios' id='noping' type='checkbox' checked><label class='btswitch-btn' for='noping' onclick='ping(0)'></label>";
+			isPing = "<input class='btswitch btswitch-ios' id='noping' type='checkbox' checked /><label class='btswitch-btn' for='noping' onclick='ping(0)'></label>";
 		}
 		$("#is_ping").html(isPing);
 
 		// console.log(rdata.firewall_status);
 		var fStatus = '';
 		if (rdata.firewall_status){
-			fStatus = "<input class='btswitch btswitch-ios' id='firewall_status' type='checkbox' checked><label class='btswitch-btn' for='firewall_status' onclick='firewall(1)'></label>";
+			fStatus = "<input class='btswitch btswitch-ios' id='no_firewall_status' type='checkbox' checked><label class='btswitch-btn' for='no_firewall_status' onclick='firewall(1)'/></label>";
 		}else{
-			fStatus = "<input class='btswitch btswitch-ios' id='firewall_status' type='checkbox'><label class='btswitch-btn' for='firewall_status' onclick='firewall(0)'></label>";
+			fStatus = "<input class='btswitch btswitch-ios' id='no_firewall_status' type='checkbox'><label class='btswitch-btn' for='no_firewall_status' onclick='firewall(0)'/></label>";
 		}
 		$("#firewall_status").html(fStatus);
 		
@@ -151,11 +151,7 @@ function mstsc(port) {
 function ping(status){
 	var msg = status == 1 ? '禁PING后不影响服务器正常使用，但无法ping通服务器，您真的要禁PING吗？' : '解除禁PING状态可能会被黑客发现您的服务器，您真的要解禁吗？';
 	layer.confirm(msg,{title:'是否禁ping',closeBtn:2,cancel:function(){
-		if(status == 1){
-			$("#noping").prop("checked",true);
-		} else {
-			$("#noping").prop("checked",false);
-		}
+		$("#noping").prop("checked",status != 1);
 	}},function(){
 		layer.msg('正在处理,请稍候...',{icon:16,time:20000});
 		$.post('/firewall/set_ping','status='+status, function(data) {
@@ -172,11 +168,7 @@ function ping(status){
 			}
 		},'json');
 	},function(){
-		if(status == 1){
-			$("#noping").prop("checked",true);
-		} else {
-			$("#noping").prop("checked",false);
-		}
+		$("#noping").prop("checked",status != 1);
 	});
 }
 
@@ -188,12 +180,8 @@ function ping(status){
  */
 function firewall(status){
 	var msg = status == 1 ? '禁用防火墙会增加服务器不安全性，您真的要禁用防火墙吗？' : '开启防火墙,增加服务器安全!';
-	layer.confirm(msg,{title:'是否开启防火墙!',closeBtn:2,cancel:function(){
-		if(status == 1){
-			$("#firewall_status").prop("checked",true);
-		} else {
-			$("#firewall_status").prop("checked",false);
-		}
+	layer.confirm(msg,{title:'是否开启防火墙!', closeBtn:2, cancel:function() {
+		$("#no_firewall_status").prop("checked",status==1);
 	}},function(){
 		layer.msg('正在处理,请稍候...',{icon:16,time:20000});
 		$.post('/firewall/set_fw','status='+status, function(data) {
@@ -206,11 +194,7 @@ function firewall(status){
 			}
 		},'json');
 	},function(){
-		if(status == 1){
-			$("#firewall_status").prop("checked",true);
-		} else {
-			$("#firewall_status").prop("checked",false);
-		}
+		$("#no_firewall_status").prop("checked",status==1);
 	});
 }
 

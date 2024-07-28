@@ -90,7 +90,7 @@
                         <li id="memuAplugins_mysql"><a class="menu_data" href="/plugins/menu?tag=mysql">MYSQL</a></li>
                         <li id="memuAgeneva">
                             <a class="menu_firewall" href="/geneva">移动墙
-                                <div class='ssh-item-layout' id="firewall_status">
+                                <div class='ssh-item-layout' id="geneva_status">
                                     <div class="ssh-item-switch"></div>
                                 </div>
                             </a>
@@ -170,7 +170,7 @@ function layout_getStatus() {
 		}else{
 			fStatus = "<div class='ssh-item-switch closed'></div>";
 		}
-		$("#firewall_status").html(fStatus);
+		$("#geneva_status").html(fStatus);
 	},'json');
 }
 
