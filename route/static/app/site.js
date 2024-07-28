@@ -235,7 +235,7 @@ function getTjCode(name){
 		layer.close(loadT);
 		jscode = rdata.status?rdata.data.jscode:'';
 		if (jscode){
-			jscode = jscode.replace(/=token(;|$)/,"=\""+rdata.data.token+"\" ")
+			jscode = jscode.replace(/=token(;|$)/,"=\""+rdata.data.token+"\"; ")
 		}
 		layer.open({
 			type: 1,
