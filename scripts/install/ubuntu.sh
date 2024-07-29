@@ -114,8 +114,7 @@ apt install -y python3.9-venv
 apt install -y python3.9-distutils
 python3.9 -m ensurepip
 apt install python3-apt --reinstall
-cp /usr/lib/python3/dist-packages/apt_pkg.cpython-310-x86_64-linux-gnu.so /usr/lib/python3/dist-packages/apt
-_pkg.so
+cp /usr/lib/python3/dist-packages/apt_pkg.cpython-310-x86_64-linux-gnu.so /usr/lib/python3/dist-packages/apt_pkg.so
 apt install -y python3.9-dev
 # python 3.9
 apt install -y gcc
@@ -206,8 +205,8 @@ if [ "${VERSION_ID}" == "20.04" ];then
     ln -s gi/_gi.cpython-38-x86_64-linux-gnu.so gi/_gi.so && \
     ln apt_pkg.cpython-38-x86_64-linux-gnu.so apt_pkg.so && \
     sed -i 's/isAlive/is_alive/' softwareproperties/SoftwareProperties.py && \
-    add-apt-repository ppa:ondrej/php
 fi
+add-apt-repository ppa:ondrej/php
 
 cd /www/server/mdserver-web/scripts && bash lib.sh
 chmod 755 /www/server/mdserver-web/data
