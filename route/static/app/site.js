@@ -248,7 +248,7 @@ function getTjCode(name){
 			content: '<div class="bt-form bt-form pd20">\
 						<div class="line">\
 							<div>\
-								<textarea rows="6" readonly="readonly" class="bt-input-text mr5" type="text" style="width: 680px; height: 166px;">'+jscode+'</textarea>\
+								<textarea rows="6" readonly="readonly" class="bt-input-text mr5" type="text" style="width: 1800px; height: 60px;">'+jscode+'</textarea>\
 							</div>\
 						</div>\
 					</div>'
