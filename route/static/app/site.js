@@ -15,9 +15,9 @@ function getSuccessRate(rate_class, rate, width = undefined, adjustify = false) 
 		width = rate;
 	}
 	text = `<span style='position: absolute; height: 15px; color: #fff;margin: 0 5px;bottom: 2px;'>${rate}%</span>`;
-	if (rate == 0) {
+	if (rate <= 0) {
 		width = 100;
-		text = `<span style='position: absolute; height: 15px; color: #fff;margin: 0 5px;bottom: 2px;left:0'>${rate}%</span>`;
+		text = `<span style='position: absolute; height: 15px; color: #fff;margin: 0 5px;bottom: 2px;left:0'>0%</span>`;
 	}
 	else {
 		if (rate && adjustify && $('#site-table').width() * 0.14 * rate / 100 > 26) {

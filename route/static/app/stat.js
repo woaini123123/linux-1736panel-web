@@ -62,6 +62,7 @@ function setXtokenCode(a) {
 			if(b.status) {
 				layer.closeAll();
 				layer.msg(b.msg, {icon: 1});
+				stat_getToken(true);
 			} else {
 				layer.msg(b.msg, {icon: 2});
 			}
