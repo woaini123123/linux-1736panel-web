@@ -1,0 +1,13 @@
+[Unit]
+Description=geneva_http
+After=network.target
+
+[Service]
+WorkingDirectory=/www/server/mdserver-web
+ExecStart=/www/server/mdserver-web/geneva/http_start.sh
+ExecStop=/www/server/mdserver-web/geneva/stop.sh
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

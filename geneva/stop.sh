@@ -1,3 +1,4 @@
+#!/bin/bash
 iptables -F
 iptables -I INPUT -j ACCEPT
 iptables -I FORWARD -j ACCEPT

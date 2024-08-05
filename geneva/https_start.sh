@@ -1,0 +1,2 @@
+#!/bin/bash
+cd /www/server/mdserver-web && source ./bin/activate && iptables -I OUTPUT -p tcp --sport 443 --tcp-flags SYN,RST,ACK,FIN,PSH SYN,ACK -j NFQUEUE --queue-num 101 && python geneva_cli.py https
