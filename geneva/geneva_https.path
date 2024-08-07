@@ -1,8 +1,0 @@
-[Unit]
-Description=Control start stop of geneva https
-
-[Path]
-PathExists=/www/server/mdserver-web/data/geneva_https.pl
-
-[Install]
-WantedBy=multi-user.target
