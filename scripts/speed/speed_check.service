@@ -1,0 +1,5 @@
+[Unit]
+Description=speed_check
+
+[Service]
+ExecStart=/www/server/mdserver-web/scripts/speed/speed_check.sh

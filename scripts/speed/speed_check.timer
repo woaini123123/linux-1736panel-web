@@ -1,0 +1,9 @@
+[Unit]
+Description=Run speed_check.service at midnight
+
+[Timer]
+OnCalendar=*-*-* 00:00:00
+Unit=speed_check.service
+
+[Install]
+WantedBy=timers.target
