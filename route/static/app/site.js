@@ -454,6 +454,132 @@ function webAddPage(type) {
 	}, 'json');
 }
 
+// 一键部署
+function oneDeploy() {
+	$.post('/site/template_list',function(data){
+		var rdata = data.data || [];
+		var list = '<div class="container-fluid"><div class="row">';
+		for (var i = 0; i<rdata.length; i++) {
+			list +='<div class="col-xs-6"><div class="media deploy-tmpl">\
+								<div class="media-left">\
+									<div class="cms-icon ' + rdata[i].name + '"></div>\
+								</div>\
+								<div class="media-body">\
+									<h4 class="media-heading">' + rdata[i].name + '</h4>\
+									<p>版本：' + rdata[i].versions + '</p>\
+									<p>简介：' + rdata[i].title + '</p>\
+									<p class="text-right"><button type="button" title="选择模板" class="btn btn-success btn-sm btn-title" onclick="selectTmpl(\''+rdata[i].name+'\')" >选择模板</button></p>\
+								</div>\
+						 </div></div>';
+		}
+		list += '</div></div>';
+
+		layer.open({
+			type: 1,
+			area: '700px',
+			title: '部署模板',
+			closeBtn: 1,
+			shift: 0,
+			content: list
+		});
+	},'json');
+}
+
+// 选择模板
+function selectTmpl(templateName) {
+	layer.closeAll();
+	var loadT = layer.msg('正在处理,请稍候...',{icon:16,time:10000,shade: [0.3, '#000']});
+	$.post('/site/check_deploy_system', '&templateName=' + templateName, function(data){
+		layer.close(loadT);
+		if (data.status) {
+			layer.open({
+				type: 1,
+				area: '520px',
+				title: '部署模板',
+				closeBtn: 1,
+				shift: 0,
+				content: '<div class="bt-form pd20 pb70">\
+										<div class="line">\
+											<p>部署环境已就绪，请输入域名后开始部署</p>\
+										</div>\
+										<div class="line">\
+											<input class="bt-input-text mr5" type="text" style="width:50%" placeholder="默认为80端口" id="deploy-domain">\
+										</div>\
+										<div class="bt-form-submit-btn">\
+											<button type="button" title="开始部署" class="btn btn-success btn-sm btn-title" onclick="startDeploy(\''+templateName+'\')" >开始部署</button>\
+										</div>\
+									</div>'
+			});
+		}
+		else {
+			var plugins = data.msg && data.msg.split(',');
+			var rcontent = '<div class="pd20"><div class="line"><p>请确认以下插件已安装：</p></div>';
+			for (var i = 0; i < plugins.length; i++) {
+				rcontent += '<div class="line"><p>' + plugins[i] + '</p></div>';
+			}
+			rcontent += '</div>';
+			layer.open({
+				type: 1,
+				area: "520px",
+				title: "部署失败",
+				closeBtn: 1,
+				shift: 5,
+				btn:['关闭'],
+				shadeClose: false,
+				content: rcontent
+			});
+		}
+	},'json');
+}
+
+// 开始部署
+function startDeploy(templateName) {
+	layer.closeAll();
+	var loadT = layer.msg('正在处理,请稍候...',{icon:16,time:10000,shade: [0.3, '#000']});
+	var domain = $("#deploy-domain").val();
+	$.post('/site/start_deploy', '&templateName=' + templateName + '&domain=' + domain, function(data){
+		layer.close(loadT);
+		if (data.status) {
+			var rdata = data.data;
+			layer.open({
+				type: 1,
+				area: "520px",
+				title: "部署结果",
+				closeBtn: 1,
+				shift: 5,
+				btn:['关闭'],
+				shadeClose: false,
+				content: '<div class="pd20">\
+										<div class="line">\
+											<p>已部署完成，请保存以下信息：</p>\
+										</div>\
+										<div class="line">\
+											<p>cms访问地址：' + rdata.cmsPath + '</p>\
+										</div>\
+										<div class="line">\
+											<p>数据库名称：' + rdata.dbName + '</p>\
+										</div>\
+										<div class="line">\
+											<p>数据库地址：' + rdata.dbUrl + '</p>\
+										</div>\
+										<div class="line">\
+											<p>数据库连接端口：' + rdata.dbPort + '</p>\
+										</div>\
+										<div class="line">\
+											<p>数据库用户名：' + rdata.dbUserName + '</p>\
+										</div>\
+										<div class="line">\
+											<p>数据库密码：' + rdata.dbPassword + '</p>\
+										</div>\
+									</div>'
+			});
+		}
+		else {
+			layer.msg(data.msg,{icon:data.status?1:2});
+		}
+	},'json');
+}
+
 //修改网站目录
 function webPathEdit(id){
 	$.post('/site/get_dir_user_ini','&id='+id, function(data){
