@@ -580,6 +580,115 @@ function startDeploy(templateName) {
 	},'json');
 }
 
+// 批量部署
+function batchDeploy() {
+	var content = '<div class="bt-form pd20 pb70">\
+										<div class="line">\
+											<textarea id="deploy-domains" class="bt-input-text" style="height: 128px; width: 100%;padding:5px 10px;line-height:20px"></textarea>\
+											<ul class="help-info-text c7 ptb10">\
+												<li>批量格式：域名|根目录|FTP|数据库|PHP版本|模板ID</li>\
+												<li>域名参数：多个域名用 , 分割</li>\
+												<li>根目录参数：填写 1 为自动创建，或输入具体目录</li>\
+												<li>FTP参数：填写 1 为自动创建，填写 0 为不创建</li>\
+												<li>数据库参数：填写 1 为自动创建，填写 0 为不创建</li>\
+												<li>PHP版本参数：填写 0 为静态，或输入PHP具体版本号列如：56、71、74</li>\
+												<li>如需添加多个站点，请换行填写</li>\
+												<li>案例：bt.cn,test.cn:8081|/www/wwwroot/bt.cn|1|1|56|1</li>\
+												<li><button type="button" title="可用模板" class="btn btn-success btn-sm btn-title" onclick="displayTmpl()" >可用模板</button>\</li>\
+											</ul>\
+										</div>\
+										<div class="bt-form-submit-btn">\
+											<button type="button" title="开始部署" class="btn btn-success btn-sm btn-title" onclick="startBatchDeploy()" >开始部署</button>\
+										</div>\
+									</div>';
+	layer.open({
+		type: 1,
+		area: '700px',
+		title: '批量部署',
+		closeBtn: 1,
+		shift: 0,
+		content: content
+	});
+}
+
+// 可用模板
+function displayTmpl() {
+	$.post('/site/template_list',function(data){
+		var rdata = data.data || [];
+		var content = '';
+		for(var i = 0; i < rdata.length; i++) {
+			content += '<tr>\
+									 <td>' + rdata[i].id + '</td>\
+									<td>' + rdata[i].name + '</td>\
+									<td>' + rdata[i].versions + '</td>\
+									<td>' + rdata[i].title + '</td>\
+								</tr>';
+		}
+
+		layer.open({
+			type: 1,
+			area: '700px',
+			title: '可用模板',
+			closeBtn: 1,
+			shift: 0,
+			content: '<div class="pd20">\
+									<table class="table table-hover" width="100%">\
+										<thead><tr>\
+											<th>ID</th>\
+											<th>名称</th>\
+											<th>版本</th>\
+											<th>简介</th>\
+										</tr></thead>\
+										<tbody>' + content + '</tbody>\
+									</table>\
+								</div>'
+		});
+	},'json');
+}
+
+// 开始批量部署
+function startBatchDeploy() {
+	var loadT = layer.msg('正在处理,请稍候...',{icon:16,time:10000,shade: [0.3, '#000']});
+	var deployDomains = $("#deploy-domains").val().replace(/\r\n/g, '\n').split('\n');
+	$.post('/site/batch_deploy', { deployInfo: JSON.stringify(deployDomains) }, function(data){
+		layer.close(loadT);
+		var rdata = data.data;
+		var content = '';
+		if (data.status) {
+			layer.closeAll();
+		}
+		for(var i = 0; i < rdata.length; i++) {
+			content += '<tr>\
+									 <td>' + rdata[i].domain + '</td>\
+									<td>' + (data.status ? (rdata[i].ftpResult == 1 ? '已配置' : '配置失败') : rdata[i].ftpResultMsg)  + '</td>\
+									<td>' + (data.status ? (rdata[i].dbResult == 1 ? '已配置' : '配置失败') : rdata[i].dbResultMsg) + '</td>\
+									<td>' + (data.status ? (rdata[i].siteResult == 1 ? '已配置' : '配置失败') : rdata[i].siteResultMsg) + '</td>\
+								</tr>';
+		}
+
+		layer.open({
+			type: 1,
+			area: "520px",
+			title: "批量部署结果",
+			closeBtn: 1,
+			shift: 5,
+			btn:['关闭'],
+			shadeClose: false,
+			content: '<div class="pd20">\
+									<table class="table table-hover" width="100%">\
+										<thead><tr>\
+											<th>名称</th>\
+											<th>FTP</th>\
+											<th>数据库</th>\
+											<th>结果</th>\
+										</tr></thead>\
+										<tbody>' + content + '</tbody>\
+									</table>\
+								</div>'
+		});
+	},'json');
+}
+
 //修改网站目录
 function webPathEdit(id){
 	$.post('/site/get_dir_user_ini','&id='+id, function(data){
