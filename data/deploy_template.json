@@ -3,8 +3,18 @@
         "id":"1",
         "title":"苹果CMS",
         "name":"maccms",
+        "autoCollect":false,
         "versions":"v10",
         "logo":"",
         "url":"https://ceshi.tingwen777.com/maccms10-master.zip"
+    },
+    {
+        "id":"2",
+        "title":"苹果CMS,自动配置采集接口",
+        "autoCollect":true,
+        "name":"maccms",
+        "versions":"v10",
+        "logo":"",
+        "url":"https://ceshi.tingwen777.com/maccms-master-collect.zip"
     }
 ]

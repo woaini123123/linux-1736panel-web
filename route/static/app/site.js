@@ -468,7 +468,7 @@ function oneDeploy() {
 									<h4 class="media-heading">' + rdata[i].name + '</h4>\
 									<p>版本：' + rdata[i].versions + '</p>\
 									<p>简介：' + rdata[i].title + '</p>\
-									<p class="text-right"><button type="button" title="选择模板" class="btn btn-success btn-sm btn-title" onclick="selectTmpl(\''+rdata[i].name+'\')" >选择模板</button></p>\
+									<p class="text-right"><button type="button" title="选择模板" class="btn btn-success btn-sm btn-title" onclick="selectTmpl(\''+rdata[i].id+'\')" >选择模板</button></p>\
 								</div>\
 						 </div></div>';
 		}
@@ -486,10 +486,10 @@ function oneDeploy() {
 }
 
 // 选择模板
-function selectTmpl(templateName) {
+function selectTmpl(templateId) {
 	layer.closeAll();
 	var loadT = layer.msg('正在处理,请稍候...',{icon:16,time:10000,shade: [0.3, '#000']});
-	$.post('/site/check_deploy_system', '&templateName=' + templateName, function(data){
+	$.post('/site/check_deploy_system', '&templateId=' + templateId, function(data){
 		layer.close(loadT);
 		if (data.status) {
 			layer.open({
@@ -506,7 +506,7 @@ function selectTmpl(templateName) {
 											<input class="bt-input-text mr5" type="text" style="width:50%" placeholder="默认为80端口" id="deploy-domain">\
 										</div>\
 										<div class="bt-form-submit-btn">\
-											<button type="button" title="开始部署" class="btn btn-success btn-sm btn-title" onclick="startDeploy(\''+templateName+'\')" >开始部署</button>\
+											<button type="button" title="开始部署" class="btn btn-success btn-sm btn-title" onclick="startDeploy(\''+templateId+'\')" >开始部署</button>\
 										</div>\
 									</div>'
 			});
@@ -533,11 +533,11 @@ function selectTmpl(templateName) {
 }
 
 // 开始部署
-function startDeploy(templateName) {
+function startDeploy(templateId) {
 	layer.closeAll();
 	var loadT = layer.msg('正在处理,请稍候...',{icon:16,time:10000,shade: [0.3, '#000']});
 	var domain = $("#deploy-domain").val();
-	$.post('/site/start_deploy', '&templateName=' + templateName + '&domain=' + domain, function(data){
+	$.post('/site/start_deploy', '&templateId=' + templateId + '&domain=' + domain, function(data){
 		layer.close(loadT);
 		if (data.status) {
 			var rdata = data.data;
@@ -555,6 +555,12 @@ function startDeploy(templateName) {
 										</div>\
 										<div class="line">\
 											<p>cms访问地址：' + rdata.cmsPath + '</p>\
+										</div>\
+										<div class="line">\
+											<p>cms用户名：' + rdata.cmsUserName + '</p>\
+										</div>\
+										<div class="line">\
+											<p>cms密码：' + rdata.cmsPassword + '</p>\
 										</div>\
 										<div class="line">\
 											<p>数据库名称：' + rdata.dbName + '</p>\
@@ -594,6 +600,7 @@ function batchDeploy() {
 												<li>PHP版本参数：填写 0 为静态，或输入PHP具体版本号列如：56、71、74</li>\
 												<li>如需添加多个站点，请换行填写</li>\
 												<li>案例：bt.cn,test.cn:8081|/www/wwwroot/bt.cn|1|1|56|1</li>\
+												<li>部署成功后的系统存放在/www/wwwroot目录下</li>\
 												<li><button type="button" title="可用模板" class="btn btn-success btn-sm btn-title" onclick="displayTmpl()" >可用模板</button>\</li>\
 											</ul>\
 										</div>\
@@ -649,44 +656,109 @@ function displayTmpl() {
 // 开始批量部署
 function startBatchDeploy() {
 	var loadT = layer.msg('正在处理,请稍候...',{icon:16,time:10000,shade: [0.3, '#000']});
-	var deployDomains = $("#deploy-domains").val().replace(/\r\n/g, '\n').split('\n');
+	var deployDomains = [];
+	var deployText = $("#deploy-domains").val().replace(/\r\n/g, '\n');
+	if (deployText) {
+		deployDomains = deployText.split('\n');
+	}
+	else {
+		layer.msg('请先输入批量部署信息',{ icon: 2 });
+		return;
+	}
 	$.post('/site/batch_deploy', { deployInfo: JSON.stringify(deployDomains) }, function(data){
 		layer.close(loadT);
-		var rdata = data.data;
-		var content = '';
 		if (data.status) {
 			layer.closeAll();
+			var rdata = data.data || [];
+			var content = '';
+			for(var i = 0; i < rdata.length; i++) {
+				content += '<tr>\
+										 <td>' + rdata[i].domain + '</td>\
+										<td>' + (data.status ? (rdata[i].ftpResult == 1 ? '已配置' : '配置失败') : rdata[i].ftpResultMsg)  + '</td>\
+										<td>' + (data.status ? (rdata[i].dbResult == 1 ? '已配置' : '配置失败') : rdata[i].dbResultMsg) + '</td>\
+										<td>' + (data.status ? (rdata[i].siteResult == 1 ? '已配置' : '配置失败') : rdata[i].siteResultMsg) + '</td>\
+									</tr>';
+			}
+	
+			layer.open({
+				type: 1,
+				area: "520px",
+				title: "批量部署结果",
+				closeBtn: 1,
+				shift: 5,
+				btn:['下载配置信息', '关闭'],
+				yes:function(layero,index){
+					$.ajax({
+						url: '/site/download_deploy_site_info',
+						method: 'POST',
+						dataType: 'text',
+						contentType: 'text/csv',
+						success: function(csvData) {
+							saveAsCSV(csvData);
+						},
+						error: function(xhr, status, error) {
+							layer.msg('下载失败',{ icon: 2 });
+						}
+					});
+				},
+				shadeClose: false,
+				content: '<div class="pd20">\
+										<table class="table table-hover" width="100%">\
+											<thead><tr>\
+												<th>名称</th>\
+												<th>FTP</th>\
+												<th>数据库</th>\
+												<th>结果</th>\
+											</tr></thead>\
+											<tbody>' + content + '</tbody>\
+										</table>\
+									</div>'
+			});
 		}
-		for(var i = 0; i < rdata.length; i++) {
-			content += '<tr>\
-									 <td>' + rdata[i].domain + '</td>\
-									<td>' + (data.status ? (rdata[i].ftpResult == 1 ? '已配置' : '配置失败') : rdata[i].ftpResultMsg)  + '</td>\
-									<td>' + (data.status ? (rdata[i].dbResult == 1 ? '已配置' : '配置失败') : rdata[i].dbResultMsg) + '</td>\
-									<td>' + (data.status ? (rdata[i].siteResult == 1 ? '已配置' : '配置失败') : rdata[i].siteResultMsg) + '</td>\
-								</tr>';
+		else {
+			layer.msg(data.msg.replaceAll(',', '<br>'),{icon:data.status?1:2});
 		}
-
-		layer.open({
-			type: 1,
-			area: "520px",
-			title: "批量部署结果",
-			closeBtn: 1,
-			shift: 5,
-			btn:['关闭'],
-			shadeClose: false,
-			content: '<div class="pd20">\
-									<table class="table table-hover" width="100%">\
-										<thead><tr>\
-											<th>名称</th>\
-											<th>FTP</th>\
-											<th>数据库</th>\
-											<th>结果</th>\
-										</tr></thead>\
-										<tbody>' + content + '</tbody>\
-									</table>\
-								</div>'
-		});
+		
 	},'json');
+}
+
+function saveAsCSV(data) {
+	// 创建Blob对象
+  const blob = new Blob([data], { type: 'text/csv;charset=utf-8;' });
+ 
+  // 创建并触发下载
+  const link = document.createElement("a");
+  if (link.download !== undefined) { // 支持下载属性
+		const timestamp = getCurrentTime();
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `配置信息_${timestamp}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+}
+
+function getCurrentTime() {
+  var date = new Date();
+  var year = date.getFullYear();
+  var month = repair(date.getMonth() + 1);
+  var day = repair(date.getDate());
+  var hour = repair(date.getHours());
+  var minute = repair(date.getMinutes());
+  var second = repair(date.getSeconds());
+
+  var curTime = [year, month, day, hour, minute, second].join('');
+  return curTime;
+}
+
+function repair(i) {
+  if (i >= 0 && i <= 9) {
+    return '0' + i;
+  } else {
+    return i;
+  }
 }
 
 //修改网站目录
