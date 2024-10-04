@@ -527,6 +527,30 @@ function setImg() {
     });
 }
 
+// 更新日志
+function getReleases() {
+    $.post('/system/server_releases',function(data){
+            var rdata = data || [];
+            var list = '<div class="container-fluid">';
+            for (var i = 0; i<rdata.length; i++) {
+                list +='<div class="mtb15">\
+                            <h3 class="c5 f15">' + rdata[i].name + '</h3>\
+                            <p class="mtb10">' + rdata[i].body?.replaceAll('\r\n', '<br>') + '</p>\
+                        </div>';
+            }
+            list += '</div>';
+    
+            layer.open({
+                type: 1,
+                area: '700px',
+                title: '更新日志',
+                closeBtn: 1,
+                shift: 0,
+                content: list
+            });
+        },'json');
+}
+
 // 检查更新
 setTimeout(function() {
     $.get('/system/update_server?type=check', function(rdata) {
