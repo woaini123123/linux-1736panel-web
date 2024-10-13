@@ -9,7 +9,7 @@ function updateBtnStatus(status) {
 }
 
 function getInternalStatus() {
-	$.post('/geneva/get_status', function(data){
+	$.post('/geneva/get_yidongqiang_status', function(data){
         updateBtnStatus(data.status);
 	},'json');
 }

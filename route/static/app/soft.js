@@ -41,9 +41,9 @@ function getSList(isdisplay) {
     if (isdisplay !== true) {
         var loadT = layer.msg('正在获取列表...', { icon: 16, time: 0, shade: [0.3, '#000'] })
     }
-    if (!isdisplay || isdisplay === true)
+    if (!isdisplay && isdisplay !== 0 || isdisplay === true)
         isdisplay = getCookie('p' + getCookie('soft_type'));
-    if (isdisplay == true || isdisplay == 'true') isdisplay = 1;
+    if (isdisplay == 0) isdisplay = 1;
 
     var search = $("#SearchValue").val();
     if (search != '') {

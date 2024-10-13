@@ -163,7 +163,7 @@ setInterval(function(){
 }, 1000);
 layout_getStatus();
 function layout_getStatus() {
-	$.post('/geneva/get_status', function(data){
+	$.post('/geneva/get_yidongqiang_status', function(data){
         var fStatus = '';
 		if (data.status){
 			fStatus = "<div class='ssh-item-switch open'></div>";

@@ -557,10 +557,10 @@ function startDeploy(templateId) {
 											<p>cms访问地址：' + rdata.cmsPath + '</p>\
 										</div>\
 										<div class="line">\
-											<p>cms用户名：' + rdata.cmsUserName + '</p>\
+											<p>cms用户名：' + rdata.cmsUserName || '自己设置' + '</p>\
 										</div>\
 										<div class="line">\
-											<p>cms密码：' + rdata.cmsPassword + '</p>\
+											<p>cms密码：' + rdata.cmsPassword || '自己设置' + '</p>\
 										</div>\
 										<div class="line">\
 											<p>数据库名称：' + rdata.dbName + '</p>\

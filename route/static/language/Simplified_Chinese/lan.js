@@ -591,7 +591,7 @@ var lan = {
 		"php_ext_ps":"说明",
 		"php_ext_status":"状态",
 		"php_ext_install_confirm":"您真的要安装{1}吗?",
-		"php_ext_uninstall_confirm":"您真的要安装{1}吗?",
+		"php_ext_uninstall_confirm":"您真的要卸载{1}吗?",
 		"add_install":"正在添加到安装器...",
 		"install_title":"软件安装",
 		"insatll_type":"安装方式",
