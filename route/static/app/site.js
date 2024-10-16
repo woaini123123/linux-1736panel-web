@@ -460,10 +460,9 @@ function oneDeploy() {
 		var rdata = data.data || [];
 		var list = '<div class="container-fluid"><div class="row">';
 		for (var i = 0; i<rdata.length; i++) {
+			var icon = rdata[i].logo ? '<div class="cms-icon"><img src=' + rdata[i].logo +' alt=' + rdata[i].name +' /></div>' : '<div class="cms-icon ' + rdata[i].name + '"></div>';
 			list +='<div class="col-xs-6"><div class="media deploy-tmpl">\
-								<div class="media-left">\
-									<div class="cms-icon ' + rdata[i].name + '"></div>\
-								</div>\
+								<div class="media-left">' + icon + '</div>\
 								<div class="media-body">\
 									<h4 class="media-heading">' + rdata[i].name + '</h4>\
 									<p>版本：' + rdata[i].versions + '</p>\
