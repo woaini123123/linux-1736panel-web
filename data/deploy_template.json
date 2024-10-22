@@ -3,7 +3,7 @@
         "id":"1",
         "title":"苹果CMS",
         "name":"maccms",
-        "autoCollect":false,
+        "autoCollect":true,
         "versions":"v10",
         "logo":"",
         "url":"https://ceshi.tingwen777.com/maccms10-master.zip"
