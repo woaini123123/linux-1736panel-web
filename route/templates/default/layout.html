@@ -98,6 +98,7 @@
                         </li>
                         <li id="memuAplugins_op_waf"><a class="menu_firewall" href="/plugins/menu?tag=op_waf">OP防火墙</a></li>
                         <li id="memuAstat"><a class="menu_control" href="/stat">网站统计</a></li>
+                        <li id="memuAtools"><a class="menu_set" href="/tools">站长工具</a></li>
                         <li id="memuAbt"><a class="menu_set" href="/bt">宝塔迁移</a></li>
                         <li id="memuAcontrol"><a class="menu_control" href="/control">监控</a></li>
                         <li id="memuAfirewall"><a class="menu_firewall" href="/firewall">安全</a></li>
@@ -238,11 +239,14 @@ if (thisPath.indexOf('?')>-1){
 var PathIndex = [
   '', 'site', 'menu', 'geneva', 'dns','stat',
   'bt', 'control', 'firewall', 'files', 'logs',
-  'crontab', 'soft', 'config'
+  'crontab', 'soft', 'config', 'tools'
 ];
 getAds();
 function getAds() {
   var menuIndex = getAdIndex(thisPath);
+  if (menuIndex === 'site_speed') {
+    menuIndex = 'tools'
+  }
   var adIndex = PathIndex.indexOf(menuIndex) + 1;
   var adImgs = [];
   var adLinks = [];

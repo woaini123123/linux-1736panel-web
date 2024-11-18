@@ -5141,6 +5141,10 @@ select[disabled]{
     margin: 16px;
 }
 
+.no-data-text {
+    text-align: center;
+}
+
 .cms-icon {
     width: 64px;
     height: 64px;

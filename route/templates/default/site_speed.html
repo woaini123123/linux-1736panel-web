@@ -1,0 +1,187 @@
+{% extends "layout.html" %} {% block content %}
+<div class="main-content">
+  <div class="container-fluid" style="padding-bottom: 54px">
+    <div class="pos-box bgw mtb15">
+      <div class="position f14 c9 pull-left">
+        <a class="plr10 c4" href="/">首页</a>/<a class="plr10 c4" href="/tools">站长工具</a>/<span
+          class="plr10 c4">网站测速</span>
+      </div>
+    </div>
+
+    <div class="safe container-fluid bgw mtb15 pd15" style="overflow: hidden">
+      <div class="mr50 pull-left">
+        <div class="ss-text pull-left">
+          <em>输入URL: </em>
+          <input style="width: 320px;" class="bt-input-text" id="domain" placeholder="请填写完整URL,例：http://www.test.com"
+            value="" type="text" />
+        </div>
+        <div class="ss-text pull-left" style="margin-left: 10px">
+          <button class="btn btn-default btn-sm" type="button" onclick="getSiteSpeed(this);">
+            开始测速
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <div id="china_map" style="width: 100%;height: 550px;">
+          <div style="position: relative;">
+            <canvas style="position: absolute;"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="safe bgw">
+          <div class="pd15" style="display: flex;">
+            <div><span id="check-node-num"></span>当前进度：</div>
+            <div class="progress-bar" style="flex: 1; height: 20px; background-color: rgba(0, 0, 0, 0.15); box-shadow: none;">
+              <div class="progress-bar-inner" id="progress" style="width: 0%; background-color: #24aa1d;">0%</div>
+            </div>
+          </div>
+          <div class="tab-list" id="tab-list">
+            <div class="tabs-item active" data-name="all">全部</div>
+            <div class="tabs-item" data-name="dianxin">中国电信</div>
+            <div class="tabs-item" data-name="liantong">中国联通</div>
+            <div class="tabs-item" data-name="yidong">中国移动</div>
+            <div class="tabs-item" data-name="others">港澳台、海外</div>
+            <div id="link-map" class="tabs-item hide" data-name="current"></div>
+            <div class="tabs-item" data-name="failure">访问失败<span id="failure-num" style="color: #f00;"></span></div>
+          </div>
+          <div class="tab-view-box" id="speed-details">
+            <div class="tab-con show w-full" id="all" style="padding: 0px;">
+              <div class='bt-form' style="display:flex; flex-flow: column;">
+                <div class='divtable' style='margin-bottom:0'>
+                  <p class="no-data-text show">暂时没有数据</p>
+                  <table class="table table-hover hide" width="100%">
+                    <thead>
+                      <tr>
+                        <th width="40%">检测点</th>
+                        <th style="cursor: pointer;" width="10%">状态</span></th>
+                        <th width="20%">耗时</th>
+                        <th width="30%">解析IP</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="tab-con hide" id="dianxin" style="padding: 0px;">
+              <div class='bt-form' style="display:flex; flex-flow: column;">
+                <div class='divtable' style='margin-bottom:0'>
+                  <p class="no-data-text show">暂时没有数据</p>
+                  <table class="table table-hover hide" width="100%">
+                    <thead>
+                      <tr>
+                        <th width="40%">检测点</th>
+                        <th style="cursor: pointer;" width="10%">状态</span></th>
+                        <th width="20%">耗时</th>
+                        <th width="30%">解析IP</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="tab-con hide" id="liantong" style="padding: 0px;">
+              <div class='bt-form' style="display:flex; flex-flow: column;">
+                <div class='divtable' style='margin-bottom:0'>
+                  <p class="no-data-text show">暂时没有数据</p>
+                  <table class="table table-hover hide" width="100%">
+                    <thead>
+                      <tr>
+                        <th width="40%">检测点</th>
+                        <th style="cursor: pointer;" width="10%">状态</span></th>
+                        <th width="20%">耗时</th>
+                        <th width="30%">解析IP</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="tab-con hide" id="yidong" style="padding: 0px;">
+              <div class='bt-form' style="display:flex; flex-flow: column;">
+                <div class='divtable' style='margin-bottom:0'>
+                  <p class="no-data-text show">暂时没有数据</p>
+                  <table class="table table-hover hide" width="100%">
+                    <thead>
+                      <tr>
+                        <th width="40%">检测点</th>
+                        <th style="cursor: pointer;" width="10%">状态</span></th>
+                        <th width="20%">耗时</th>
+                        <th width="30%">解析IP</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="tab-con hide" id="others" style="padding: 0px;">
+              <div class='bt-form' style="display:flex; flex-flow: column;">
+                <div class='divtable' style='margin-bottom:0'>
+                  <p class="no-data-text show">暂时没有数据</p>
+                  <table class="table table-hover hide" width="100%">
+                    <thead>
+                      <tr>
+                        <th width="40%">检测点</th>
+                        <th style="cursor: pointer;" width="10%">状态</span></th>
+                        <th width="20%">耗时</th>
+                        <th width="30%">解析IP</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="tab-con hide" id="current" style="padding: 0px;">
+              <div class='bt-form' style="display:flex; flex-flow: column;">
+                <div class='divtable' style='margin-bottom:0'>
+                  <p class="no-data-text show">暂时没有数据</p>
+                  <table class="table table-hover hide" width="100%">
+                    <thead>
+                      <tr>
+                        <th width="40%">检测点</th>
+                        <th style="cursor: pointer;" width="10%">状态</span></th>
+                        <th width="20%">耗时</th>
+                        <th width="30%">解析IP</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="tab-con hide" id="failure" style="padding: 0px;">
+              <div class='bt-form' style="display:flex; flex-flow: column;">
+                <div class='divtable' style='margin-bottom:0'>
+                  <p class="no-data-text show">暂时没有数据</p>
+                  <table class="table table-hover hide" width="100%">
+                    <thead>
+                      <tr>
+                        <th width="40%">检测点</th>
+                        <th style="cursor: pointer;" width="10%">状态</span></th>
+                        <th width="20%">耗时</th>
+                        <th width="30%">解析IP</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/static/app/echarts.min.js?v={{config.version}}"></script>
+<script src="/static/app/site_speed.js?v={{config.version}}"></script>
+</script>
+{% endblock %}
