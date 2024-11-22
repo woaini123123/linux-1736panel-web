@@ -109,8 +109,6 @@ mw_start()
 
     # fix pyarmor not found issue
     export PYTHONPATH=/www/server/mdserver-web
-    # each start, force stop the geneva
-    bash /www/server/mdserver-web/geneva/stop.sh
 
     mw_start_task
 	mw_start_panel

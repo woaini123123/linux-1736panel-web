@@ -95,9 +95,7 @@ function getSiteSpeed(el) {
     if (res.status) {
       var ioUrl = res.data.host;
       // 连接ws
-      var socket = io.connect(ioUrl, {
-        query: {api_key: res.data.api_key}
-      });
+      var socket = io.connect(ioUrl);
 
       socket.emit('start_task', { host: domainUrl });
 
